@@ -1,0 +1,2 @@
+class CleaningTool < ApplicationRecord
+end
