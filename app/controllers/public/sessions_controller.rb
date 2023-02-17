@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  
+  def new_guest #ゲストログインのためのメソッド
+    user = User.guest_sign_in
+    sign_in user
+    redirect_to root_path
+  end
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
