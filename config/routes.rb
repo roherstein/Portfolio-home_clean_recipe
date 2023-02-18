@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
+  
+  
   devise_scope :user do
     post 'public/guest_sign_in', to: 'public/sessions#new_guest'
   end
