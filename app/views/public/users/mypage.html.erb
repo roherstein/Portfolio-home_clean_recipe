@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>マイページ</h1>
+  <div class="row">
+      <%= link_to user_path do %>
+        <%= image_tag @user.profile_image, size: "250×200" %>
+      <% end %>
+      <p>プロフィール</p>
+      <%= @user.introduction %>
+      <%= link_to "いいねした投稿一覧", likes_path %>
+      <%= link_to "コメント一覧", likes_path %>
+      <p>作成中レシピ</p>
+      <% @draft_posts.each do |draft_posts| %>
+        <%= link_to "タイトル", post_path(draft_posts.id) %>
+        <%= draft_posts.created_at %>
+      <% end %>
+      <%= link_to "作成中投稿一覧", posts_draft_path(posts.id) %>
+      <% @posts.each do |posts| %>
+        <%= link_to "タイトル", post_path(posts.id) %>
+        <%= posts.likes %>
+        <%= posts.category %>
+        <%= posts.created_at %>
+      <% end %>
+      <%= link_to "投稿一覧", posts_path(posts.id) %>
+  </div>
+</div>
