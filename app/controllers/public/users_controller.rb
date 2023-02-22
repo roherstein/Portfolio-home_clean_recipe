@@ -1,10 +1,18 @@
 class Public::UsersController < ApplicationController
-  has_one_attached :profile_image
+  
   
   def mypage
-    @user = User.find(current_customer.id)
-    @posts = Post.find(current_customer.id)
-    @draft_posts = Post.find(current_customer.id)
+    @user = User.find(current_user.id)
+    @posts = @user.posts.where(is_publish: true)
+    @draft_posts = @user.posts.where(is_publish: false)
+  end
+  
+  def edit
+    @user = User.find(current_user.id)
+  end
+  
+  def show
+    @user = User.find(params[:id])
   end
   
 end

@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>ユーザ情報</h1>
+  <div class="row">
+    <%= form_with model: @user, url: user_path  do |f| %>
+      <p>ニックネーム</p>
+      <%= f.text_field :user_name %>
+      <p>メールアドレス</p>
+      <%= f.text_field :email %>
+      <p>プロフ画像</p>
+      <%= f.file_field :profile_image %>
+      <p>プロフィール</p>
+      <%= f.text_area :self_introduction %>
+      <%= f.submit "更新" %>
+    <% end %>
+    <%= link_to "退会する", users_confirm_path %>
+  </div>
+</div>

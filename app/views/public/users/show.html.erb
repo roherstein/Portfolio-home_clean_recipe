@@ -1,0 +1,10 @@
+<div class="container">
+    <h1>ユーザ情報詳細</h1>
+    <div class="row">
+      <%= image_tag @user.profile_image %>
+      <%= @user.user_name %>
+      <%= @user.email %>
+      <%= @user.self_introduction %>
+      <%= link_to "編集", edit_user_path(current_user) %>
+    </div>
+</div>

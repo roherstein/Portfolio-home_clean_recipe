@@ -1,11 +1,11 @@
 <div class="container">
   <h1>マイページ</h1>
   <div class="row">
-      <%= link_to user_path do %>
-        <%= image_tag @user.profile_image, size: "250×200" %>
+      <%= link_to user_path(current_user) do %>
+        <%= image_tag @user.get_profile_image, size: "100×100" %>
       <% end %>
       <p>プロフィール</p>
-      <%= @user.introduction %>
+      <%= @user.self_introduction %>
       <%= link_to "いいねした投稿一覧", likes_path %>
       <%= link_to "コメント一覧", likes_path %>
       <p>作成中レシピ</p>
@@ -13,13 +13,17 @@
         <%= link_to "タイトル", post_path(draft_posts.id) %>
         <%= draft_posts.created_at %>
       <% end %>
-      <%= link_to "作成中投稿一覧", posts_draft_path(posts.id) %>
+      
+      <%= link_to "作成中投稿一覧", posts_draft_path(@draft_posts) %>
+      
+      <p>投稿レシピ</p>
       <% @posts.each do |posts| %>
         <%= link_to "タイトル", post_path(posts.id) %>
         <%= posts.likes %>
         <%= posts.category %>
         <%= posts.created_at %>
       <% end %>
-      <%= link_to "投稿一覧", posts_path(posts.id) %>
+      
+      <%= link_to "投稿一覧", posts_path(@posts) %>
   </div>
 </div>

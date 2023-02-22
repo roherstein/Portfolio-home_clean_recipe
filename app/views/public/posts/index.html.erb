@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>投稿一覧</h1>
+    <div class="row">
+      <% @posts each do |posts| %>
+        <%= link_to posts.title, post_path(posts.id) do %>
+        <%= posts.like %>
+        <%= posts.category %>
+        <%= posts.created_at %>
+      <% end %>
+    </div>
+</div>

@@ -12,12 +12,13 @@ class User < ApplicationRecord
   end
   
   has_one_attached :profile_image
+  has_many :posts
   
   def get_profile_image
     unless profile_image.attached?
-      file.path = Rails.root.join('app/assets/images/No_image.jpg')
-      image.attach(io:File.open(file_path),filename: 'default-image.jpg',content_type: 'image/jpeg')
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      profile_image.attach(io:File.open(file_path),filename: 'no_image.jpg',content_type: 'image/jpeg')
     end
-    image
+    profile_image
   end
 end

@@ -1,0 +1,20 @@
+<div class="container">
+  <h4>新規投稿</h4>
+  <div class="row">
+    <%= form_with model: @post,url: new_post_path do |f| %>
+      <span>タイトル</span>
+      <%= f.text_field :title %>
+      <span>トップ画像</span>
+      <%= f.file_field :post_image,accept: "image/*" %>
+      <span>説明</span>
+      <%= f.text_field :introduction %>
+      <span>カテゴリ</span>
+      <%= f.text_field :category %>
+      <span>用意するもの</span>
+      <%= f.text_field :cleaning_tool %>
+      
+      <span>掃除方法</span>
+      <%= f.submit "投稿" %>
+    <% end %>
+  </div>
+</div>
