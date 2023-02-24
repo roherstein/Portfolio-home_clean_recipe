@@ -1,11 +1,7 @@
 class Public::CommentsController < ApplicationController
     
   def index
-      
-  end
-  
-  def new
-      
+     
   end
   
   def create
@@ -14,14 +10,6 @@ class Public::CommentsController < ApplicationController
     @comment.post_id = @post.id
     @comment.save
     redirect_to post_path
-  end
-  
-  def edit
-      
-  end
-  
-  def update
-      
   end
   
   def destroy

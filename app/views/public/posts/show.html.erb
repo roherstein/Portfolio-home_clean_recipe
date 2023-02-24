@@ -10,9 +10,18 @@
       </div>
       <div class="row">
         <span>トップ画像</span>
-       <%= image_tag @post.get_post_image, size: "100x100" %>
-       <%= link_to posts.user.user_name, user_path(@user.id) do %>
-       <span>いいね</span><%= @post.like %>
+          <%= image_tag @post.get_post_image, size: "100x100" %>
+          <%= link_to posts.user.user_name, user_path(@user.id) do %>
+        <span>いいね</span>
+        <% if @post.liked_by?(current_user) %>
+          <%= link_to likes_path(@post), method: :delete do %>
+            ♥<%= @post.likes.count %>
+          <% end %>
+        <% else %>
+          <%= link_to likes_path(@post), method: :post do %>
+            ♡<%= @post.likes.count %>
+          <% end %>
+        <% end %>
        <span>作成日時</span><%= @post.created_at.strftime('%Y/%m/%d') %>
       </div>
       <div class="row">
