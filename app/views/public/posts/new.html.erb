@@ -2,19 +2,49 @@
   <h4>新規投稿</h4>
   <div class="row">
     <%= form_with model: @post,url: new_post_path do |f| %>
-      <span>タイトル</span>
-      <%= f.text_field :title %>
-      <span>トップ画像</span>
-      <%= f.file_field :post_image,accept: "image/*" %>
-      <span>説明</span>
-      <%= f.text_field :introduction %>
-      <span>カテゴリ</span>
-      <%= f.text_field :category %>
-      <span>用意するもの</span>
-      <%= f.text_field :cleaning_tool %>
-      
-      <span>掃除方法</span>
-      <%= f.submit "投稿" %>
+      <div class="row">
+        <span>タイトル</span>
+        <%= f.text_field :title %>
+      </div>
+      <div class="row">
+        <span>トップ画像</span>
+        <%= f.file_field :post_image,accept: "image/*" %>
+      </div>
+      <div class="row">
+        <span>説明</span>
+        <%= f.text_field :introduction %>
+      </div>
+      <div class="row">
+        <span>カテゴリ</span>
+        <%= f.text_field :category %>
+      </div>
+      <div class="row">
+        <span>用意するもの</span>
+        <%= f.text_field :cleaning_tool %>
+        <div id="detail-association-insertion-point"></div>
+        <%= f.fields_for :creaning_tools do |f| %>
+          <%= render "cleaning_tools_fields", f: form %>
+        <% end %>
+        
+        <div class="add-botton-box">
+          <%= link_to_add_association "追加ボタン", f, :cleaning_tools, class: 'add_fields', id: 'add-btn',
+            data: {
+              association_insertion_node: '#detail-association-insertion-point',
+              association_insertion_method: 'after'
+              }
+          %>
+        </div>
+        
+      </div>
+      <div class="row">
+        <span>掃除方法</span>
+        <%= f.file_field :recipe_image,accept: "image/*" %>
+        
+      </div>
+      <div class="row">
+        <%= f.text_area :cleaning_recipe, placeholder: "説明文" %>
+      </div>
+      <%= f.submit "投稿", class: "btn btn-success" %>
     <% end %>
   </div>
 </div>

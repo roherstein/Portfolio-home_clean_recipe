@@ -1,0 +1,39 @@
+<div class="container">
+  <h1>投稿詳細</h1>
+    <div class="row">
+      <div class="row">
+        <span>タイトル</span>
+        <%= @post.title %>
+        <% if @post.user == current_user %>
+          <%= link_to "投稿編集する", post_path(@user) %>
+        <% end %>
+      </div>
+      <div class="row">
+        <span>トップ画像</span>
+       <%= image_tag @post.get_post_image, size: "100x100" %>
+       <%= link_to posts.user.user_name, user_path(@user.id) do %>
+       <span>いいね</span><%= @post.like %>
+       <span>作成日時</span><%= @post.created_at.strftime('%Y/%m/%d') %>
+      </div>
+      <div class="row">
+        <span>説明</span>
+        <%= @post.introduction %>
+      </div>
+      <div class="row">
+        <span>カテゴリ</span>
+        <%= @post.category %>
+      </div>
+      <div class="row">
+        <span>用意するもの</span>
+        <% @posts each do |posts| %>
+          <%= posts.cleaning_tool %>
+        <% end %>
+      </div>
+      <div class="row">
+        <span>掃除方法</span>
+        <% @posts each do |posts| %>
+          <%= posts.cleaning_recipe %>
+          <%= image_tag @post.get_recipe_image, size: "100x100" %>
+        <% end %>
+    </div>
+</div>
