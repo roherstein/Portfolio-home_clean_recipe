@@ -1,5 +1,5 @@
 class CleaningRecipe < ApplicationRecord
-  has_one_attached :creaning_recipe_image
+  has_one_attached :recipe_image
   belongs_to :post
   
   def get_recipe_image

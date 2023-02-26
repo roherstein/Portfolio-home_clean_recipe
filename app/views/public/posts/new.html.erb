@@ -12,7 +12,7 @@
       </div>
       <div class="row">
         <span>説明</span>
-        <%= f.text_field :introduction %>
+        <%= f.text_area :introduction %>
       </div>
       <div class="row">
         <span>カテゴリ</span>
@@ -20,20 +20,22 @@
       </div>
       <div class="row">
         <span>用意するもの</span>
-        <%= f.text_field :cleaning_tool %>
-        <div id="detail-association-insertion-point"></div>
-        <%= f.fields_for :creaning_tools do |f| %>
-          <%= render "cleaning_tools_fields", f: form %>
-        <% end %>
-        
         <div class="add-botton-box">
-          <%= link_to_add_association "追加ボタン", f, :cleaning_tools, class: 'add_fields', id: 'add-btn',
+          <%= link_to_add_association "追加ボタン", f, :cleaning_tools,
+            class: 'add_fields',
+            id: 'add-btn',
             data: {
               association_insertion_node: '#detail-association-insertion-point',
-              association_insertion_method: 'after'
-              }
+              association_insertion_method: 'prepend'
+              } 
           %>
         </div>
+        <%= f.text_field :cleaning_tool %>
+        <div id="detail-association-insertion-point"></div>
+        
+        <%= f.fields_for :cleaning_tools do |form| %>
+          <%= render "cleaning_tool_fields", f: form %>
+        <% end %>
         
       </div>
       <div class="row">

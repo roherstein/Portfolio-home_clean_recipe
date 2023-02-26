@@ -2,6 +2,7 @@ class Public::PostsController < ApplicationController
     
   def new
     @post = Post.new
+    @cleaning_tool = @post.cleaning_tools.build
     @cleaning_recipe = @post.cleaning_recipes.build
   end
   
@@ -36,8 +37,7 @@ class Public::PostsController < ApplicationController
   private
   def post_params
     params.require(:post).permit(
-      {images: []},:title,:post_image,:introduction,:category_name,:cleaning_tool_name,:recipe_image,:cleaning_recipe,
-      cleaning_recipes_attributes:[:id, :cleaning_recipe_id, :_destroy])
-      .merge(user_id: current_user.id)
+      :title,:post_image,:introduction,:category_name,:recipe_image,:cleaning_recipe,
+      cleaning_tools_attributes:[:id, :post_id,:cleaning_tool_name, :_destroy])
   end
 end

@@ -3,6 +3,8 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :cleaning_recipes, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :cleaning_tools, dependent: :destroy
+  accepts_nested_attributes_for :cleaning_tools, allow_destroy: true
   accepts_nested_attributes_for :cleaning_recipes, allow_destroy: true
   
   def get_post_image

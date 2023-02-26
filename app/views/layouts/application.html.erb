@@ -12,7 +12,23 @@
 
   <body>
     <header>
-      <% if user_signed_in? %>
+      <% if admin_signed_in? then %>
+        <li>
+          <%= link_to "ロゴ", users_path %>
+        </li>
+        <li>
+          <%= link_to "ユーザ一覧", users_path %>
+        </li>
+        <li>
+          <%= link_to "コメント一覧", comments_path %>
+        </li>
+        <li>
+          <%= link_to "ログアウト",destroy_admin_session_path, method: :delete %>
+        </li>
+      <% elsif user_signed_in? then %>
+        <li>
+          <%= link_to "ロゴ", root_path %>
+        </li>
         <li>
           <%= link_to "マイページ", users_mypage_path %>
         </li>
@@ -32,6 +48,11 @@
         <li>
           <%= link_to "ログイン", new_user_session_path %>
         </li>
+        
+        <li>
+          <%= link_to "管理者ログイン", new_admin_session_path %>
+        </li>
+        
          <li>
           <%= link_to "ユーザ登録", new_user_registration_path %>
         </li>
