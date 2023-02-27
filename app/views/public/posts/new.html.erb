@@ -17,6 +17,12 @@
       <div class="row">
         <span>カテゴリ</span>
         <%= f.text_field :category %>
+        <div class="field">
+          <%= f.label :categories %><br>
+          <%= collection_check_boxes(:post, :category_ids, Category.all, :id, :label ) do |t|  %>
+            <% t.label { t.check_box + t.text } %>
+          <% end %> 
+        </div>
       </div>
       <div class="row">
         <span>用意するもの</span>
@@ -26,7 +32,7 @@
             id: 'add-btn',
             data: {
               association_insertion_node: '#detail-association-insertion-point',
-              association_insertion_method: 'prepend'
+              association_insertion_method: 'append'
               } 
           %>
         </div>
@@ -40,11 +46,22 @@
       </div>
       <div class="row">
         <span>掃除方法</span>
+        <div class="add-botton-box">
+          <%= link_to_add_association "追加ボタン", f, :cleaning_recipes,
+            class: 'add_fields',
+            id: 'add-btn',
+            data: {
+              association_insertion_node: '#detail-association-insertion-point2',
+              association_insertion_method: 'append'
+              } 
+          %>
+        </div>
         <%= f.file_field :recipe_image,accept: "image/*" %>
-        
-      </div>
-      <div class="row">
         <%= f.text_area :cleaning_recipe, placeholder: "説明文" %>
+        <div id="detail-association-insertion-point2"></div>
+        <%= f.fields_for :cleaning_recipes do |form| %>
+          <%= render "cleaning_recipe_fields", f: form %>
+        <% end %>
       </div>
       <%= f.submit "投稿", class: "btn btn-success" %>
     <% end %>

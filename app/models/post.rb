@@ -4,9 +4,12 @@ class Post < ApplicationRecord
   has_many :cleaning_recipes, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :cleaning_tools, dependent: :destroy
+  has_many :post_categories, dependent: :destroy
+  has_many :categories, :through => :post_categories
   accepts_nested_attributes_for :cleaning_tools, allow_destroy: true
   accepts_nested_attributes_for :cleaning_recipes, allow_destroy: true
-  
+  accepts_nested_attributes_for :post_categories, allow_destroy: true
+   
   def get_post_image
     unless post_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')

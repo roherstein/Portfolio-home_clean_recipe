@@ -14,13 +14,13 @@
     <header>
       <% if admin_signed_in? then %>
         <li>
-          <%= link_to "ロゴ", users_path %>
+          <%= link_to "ロゴ", admin_posts_path %>
         </li>
         <li>
-          <%= link_to "ユーザ一覧", users_path %>
+          <%= link_to "ユーザ一覧", admin_users_path %>
         </li>
         <li>
-          <%= link_to "コメント一覧", comments_path %>
+          <%= link_to "コメント一覧", admin_comments_path %>
         </li>
         <li>
           <%= link_to "ログアウト",destroy_admin_session_path, method: :delete %>

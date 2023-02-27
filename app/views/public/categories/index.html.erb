@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="row">
+    <%= @category.each do %>
+      <%= link_to posts_path do %>
+        <%= @category.category_name %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -13,6 +13,14 @@ Rails.application.routes.draw do
     sessions: 'admin/sessions'
   }
   
+  namespace :admin do
+    get 'users/:id/history' => 'users#history'
+    get 'comments/:id/list' => 'comments#list'
+    resources :posts, only:[:index,:show]
+    resources :users, only:[:index,:show,:edit,:update]
+    resources :comments, only:[:index,:show,:destroy]
+  end
+  
   scope module: :public do
     root to: 'homes#top'
     get 'categories' => 'categories#index'
@@ -26,14 +34,6 @@ Rails.application.routes.draw do
       resources :comments, only:[:index,:create,:destroy]
     end
     resource :likes, only:[:index,:create,:destroy]
-  end
-  
-  scope module: :admin do
-    get 'users/:id/history' => 'users#history'
-    get 'comments/:id/list' => 'comments#list'
-    resources :posts, only:[:index,:show]
-    resources :users, only:[:index,:show,:edit,:update]
-    resources :comments, only:[:index,:show,:destroy]
   end
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

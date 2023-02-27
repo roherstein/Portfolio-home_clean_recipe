@@ -31,13 +31,18 @@ class Public::PostsController < ApplicationController
   end
   
   def index
-    @posts = Post.page(params[:page]).per(9)
+    if params[:category]
+      @posts = Post.category.where(name: params[:category])
+    else
+      @posts = Post.page(params[:page]).per(9)
+    end
   end
   
   private
   def post_params
     params.require(:post).permit(
       :title,:post_image,:introduction,:category_name,:recipe_image,:cleaning_recipe,
-      cleaning_tools_attributes:[:id, :post_id,:cleaning_tool_name, :_destroy])
+      cleaning_tools_attributes:[:id, :post_id, :cleaning_tool_name, :_destroy],
+      cleaning_recipes_attributes:[:id, :post_id, :cleaning_recipe, :recipe_image, :_destroy])
   end
 end
