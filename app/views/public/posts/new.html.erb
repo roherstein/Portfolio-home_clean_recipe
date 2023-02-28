@@ -1,7 +1,7 @@
 <div class="container">
   <h4>新規投稿</h4>
   <div class="row">
-    <%= form_with model: @post,url: new_post_path do |f| %>
+    <%= form_with model: @post,url: posts_path do |f| %>
       <div class="row">
         <span>タイトル</span>
         <%= f.text_field :title %>
@@ -16,10 +16,8 @@
       </div>
       <div class="row">
         <span>カテゴリ</span>
-        <%= f.text_field :category %>
         <div class="field">
-          <%= f.label :categories %><br>
-          <%= collection_check_boxes(:post, :category_ids, Category.all, :id, :label ) do |t|  %>
+          <%= collection_check_boxes(:post, :category_ids, Category.all, :id, :category_name ) do |t|  %>
             <% t.label { t.check_box + t.text } %>
           <% end %> 
         </div>

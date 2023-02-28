@@ -40,9 +40,11 @@ class Public::PostsController < ApplicationController
   
   private
   def post_params
-    params.require(:post).permit(
-      :title,:post_image,:introduction,:category_name,:recipe_image,:cleaning_recipe,
+    params.require(:post).permit( 
+      :title,:post_image,:introduction,:category_name,:recipe_image,:cleaning_recipe,:cleaning_tool,
+      { :category_ids=> [] },
       cleaning_tools_attributes:[:id, :post_id, :cleaning_tool_name, :_destroy],
       cleaning_recipes_attributes:[:id, :post_id, :cleaning_recipe, :recipe_image, :_destroy])
+     
   end
 end
