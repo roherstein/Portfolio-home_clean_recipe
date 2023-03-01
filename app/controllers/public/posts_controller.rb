@@ -8,8 +8,9 @@ class Public::PostsController < ApplicationController
   
   def create
     @post = Post.new(post_params)
+    @post.user_id = current_user.id
     if @post.save
-      redirect_to post_path(@post.id)
+      redirect_to post_path(@post)
     else
       render :new
     end
@@ -17,6 +18,7 @@ class Public::PostsController < ApplicationController
   
   def show
     @post = Post.find(params[:id])
+    @user = @post.user
     @post_comment = Comment.new
   end
   
@@ -37,17 +39,16 @@ class Public::PostsController < ApplicationController
       @posts = Post.where("title LIKE ?", "%#{params[:keyword]}%").where("introduction LIKE ?", "%#{params[:keyword]}%")
       @keyword = params[:keyword]
     else
-      @posts = Post.page(params[:page]).per(9)
+      @posts = Post.page(params[:page])
     end
   end
   
   private
   def post_params
     params.require(:post).permit( 
-      :title,:post_image,:introduction,:category_name,:recipe_image,:cleaning_recipe,:cleaning_tool,
-      { :category_ids=> [] },
+      :title,:post_image,:introduction,{ :category_ids=> [] },
       cleaning_tools_attributes:[:id, :post_id, :cleaning_tool_name, :_destroy],
       cleaning_recipes_attributes:[:id, :post_id, :cleaning_recipe, :recipe_image, :_destroy])
-     
+      
   end
 end
