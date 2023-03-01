@@ -58,6 +58,11 @@
         </li>
       <% end %>
       
+      <%= form_with url: posts_path,local: true do |f| %>
+        <%= f.text_field :keyword %>
+        <%= f.submit "検索" %>
+      <% end %>
+      
     </header>
     <%= yield %>
   </body>
