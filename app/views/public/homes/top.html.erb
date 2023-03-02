@@ -6,7 +6,11 @@
           <span><%= image_tag post.post_image, size: "250×200" %></span>
         <% end %>
         <%= image_tag post.user.profile_image %>
-        <%= post.user.user_name %>
+        <% if post.user.user_name.present? %>
+          <%= post.user.user_name %>
+        <% else %>
+          
+        <% end %>
         <%= post.title %>
         <%= post.likes.count %>
         <% post.categories.each do |category| %>

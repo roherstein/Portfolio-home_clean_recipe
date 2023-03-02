@@ -1,1 +1,17 @@
-投稿一覧トップページ
+<div class="container">
+  <h1>管理者 投稿一覧トップページ</h1>
+    <div class="row">
+      <% @posts.each do |post| %>
+        投稿id
+        <%= post.post_id %>
+        投稿タイトル
+        <%= post.title %>
+        投稿ユーザ名
+        <% if post.user.user_name.present? %>
+          <%= post.user.user_name %>
+        <% else %>
+          未登録
+        <% end %>
+      <% end %>
+    </div>
+</div>

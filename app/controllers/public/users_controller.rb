@@ -20,5 +20,9 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
+  private
+  def user_params
+    params.require(:user).permit(:email,:user_name,:self_introduction,:is_deleted)
+  end
   
 end

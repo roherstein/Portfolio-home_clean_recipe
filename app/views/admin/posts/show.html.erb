@@ -1,1 +1,70 @@
-投稿詳細
+<div class="container">
+    <h1>管理者 投稿詳細</h1>
+    <div class="row">
+      <span>タイトル</span>
+      <%= @post.title %>
+      <% if @post.user == current_user %>
+        <%= link_to "投稿編集する", edit_user_path(current_user.id) %>
+      <% end %>
+    </div>
+    <div class="row">
+      <span>トップ画像</span>
+      <%= image_tag @post.get_post_image(100,100) %>
+      <%= link_to @user.user_name, user_path(@user.id) %>
+      <span>いいね</span>
+      <% if @post.liked_by?(current_user) %>
+        <%= link_to likes_path(@post), method: :delete do %>
+          ♥<%= @post.likes.count %>
+        <% end %>
+      <% else %>
+        <%= link_to likes_path(@post), method: :post do %>
+          ♡<%= @post.likes.count %>
+        <% end %>
+      <% end %>
+     <span>作成日時</span>
+     <%= @post.created_at.strftime('%Y/%m/%d') %>
+    </div>
+    <div class="row">
+      <span>説明</span>
+      <%= @post.introduction %>
+    </div>
+    <div class="row">
+      <span>カテゴリ</span>
+      <% @post.categories.each do |category| %>
+        <%= category.category_name %>
+      <% end %>
+    </div>
+    <div class="row">
+      <span>用意するもの</span>
+      <% @post.cleaning_tools.each do |cleaning_tool| %>
+        <%= cleaning_tool.cleaning_tool_name %>
+      <% end %>
+    </div>
+    <div class="row">
+      <span>掃除方法</span>
+      <% @post.cleaning_recipes.each do |cleaning_recipe| %>
+        <%= image_tag cleaning_recipe.get_recipe_image, size: "100x100" %>
+        <%= cleaning_recipe.cleaning_recipe %>
+      <% end %>
+      
+      <div>
+        <%= form_with model: [@post, @post_comment] do |f| %>
+          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに記述" %>
+          <%= f.submit "送信する" %>
+        <% end %>
+      </div>
+      
+      <div>
+        <p>コメント件数：<%= @post.comments.count %></p>
+        
+        <% @post.comments.each do |comment| %>
+          <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
+          <%= comment.user.user_name %>
+          <%= comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+          <% if comment.user == current_user %>
+            <%= link_to "削除する", post_comment_path, method: :delete %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>  
+</div>
