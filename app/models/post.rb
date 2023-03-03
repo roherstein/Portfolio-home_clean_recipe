@@ -23,4 +23,8 @@ class Post < ApplicationRecord
     likes.exists?(user_id: user.id)
   end
   
+  def self.looks(keyword)
+    @post = Post.where("title LIKE?","%#{keyword}%")
+  end
+  
 end

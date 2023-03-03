@@ -16,6 +16,10 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   
+  def self.looks(keyword)
+    @user = User.where("user_name LIKE?","%#{keyword}%")
+  end
+  
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_profile_image.jpg')

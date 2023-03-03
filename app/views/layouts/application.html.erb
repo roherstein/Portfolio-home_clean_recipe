@@ -57,12 +57,7 @@
           <%= link_to "ユーザ登録", new_user_registration_path %>
         </li>
       <% end %>
-      
-      <%= form_with url: posts_path,local: true do |f| %>
-        <%= f.text_field :keyword %>
-        <%= f.submit "検索" %>
-      <% end %>
-      
+      <%= render 'public/searches/search' %>
     </header>
     <%= yield %>
   </body>

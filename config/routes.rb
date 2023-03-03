@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     get 'users/confirm' => 'users#confirm'
     get 'users/withdrawal' => 'users#withdrawal'
     get 'posts/draft' => 'posts#draft'
+    get 'search' => 'serches#search'
+    post 'search' => 'searches#search'
     resources :users, only:[:show,:edit,:update]
     resources :posts do
       resources :comments, only:[:index,:create,:destroy]

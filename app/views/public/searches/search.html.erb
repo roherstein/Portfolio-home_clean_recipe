@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>検索結果一覧</h1>
+  <div class="row">
+
+        <% @users.each do |user| %>
+          <%= link_to "#{user.user_name}", user_path(user.id) %>
+        <% end %>
+
+        <% @posts.each do |post| %>
+          <%= link_to post.title, post_path(post.id) %>
+        <% end %>
+    
+ 
+  </div>
+</div>

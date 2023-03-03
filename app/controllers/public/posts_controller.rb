@@ -35,9 +35,6 @@ class Public::PostsController < ApplicationController
   def index
     if params[:category] then
       @posts = Post.category.where(name: params[:category])
-    elsif params[:keyword].present? then
-      @posts = Post.where("title LIKE ?", "%#{params[:keyword]}%").where("introduction LIKE ?", "%#{params[:keyword]}%")
-      @keyword = params[:keyword]
     else
       @posts = Post.page(params[:page])
     end
