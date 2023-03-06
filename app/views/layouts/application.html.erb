@@ -13,54 +13,75 @@
   <body>
     <header>
       <% if admin_signed_in? then %>
-        <li>
-          <%= link_to "ロゴ　トップページ", admin_posts_path %>
-        </li>
-        <li>
-          <%= link_to "ユーザ一覧", admin_users_path %>
-        </li>
-        <li>
-          <%= link_to "コメント一覧", admin_comments_path %>
-        </li>
-        <li>
-          <%= link_to "ログアウト",destroy_admin_session_path, method: :delete %>
-        </li>
+        <nav>
+          <ul>
+            <div class="logo">
+              <%= link_to admin_posts_path do %>
+                <%= image_tag 'HRC_Logo.png', size: '150x150' %>
+              <% end %>
+            </div>
+            <li>
+              <%= link_to "ユーザ一覧", admin_users_path %>
+            </li>
+            <li>
+              <%= link_to "コメント一覧", admin_comments_path %>
+            </li>
+            <li>
+              <%= link_to "ログアウト",destroy_admin_session_path, method: :delete %>
+            </li>
+          </ul>
+        </nav>
       <% elsif user_signed_in? then %>
-        <li>
-          <%= link_to "ロゴ トップページ", root_path %>
-        </li>
-        <li>
-          <%= link_to "マイページ", users_mypage_path %>
-        </li>
-        <li>
-          <%= link_to "ユーザ情報編集", edit_user_path(current_user) %>
-        </li>
-         <li>
-          <%= link_to "投稿する", new_post_path %>
-        </li>
-        <li>
-          <%= link_to "ログアウト",destroy_user_session_path, method: :delete %>
-        </li>
+        <nav>
+          <ul>
+            <div class="logo">
+              <%= link_to root_path do %>
+                <%= image_tag 'HRC_Logo.png', size: '150x150' %>
+              <% end %>
+            </div>
+            <div>
+              <%= render 'public/searches/search' %>
+              <%= link_to 'カテゴリから選ぶ >>', categories_path %>
+            </div>
+            <li>
+              <%= link_to "マイページ", users_mypage_path %>
+            </li>
+            <li>
+              <%= link_to "ユーザ情報編集", edit_user_path(current_user) %>
+            </li>
+             <li>
+              <%= link_to "投稿する", new_post_path %>
+            </li>
+            <li>
+              <%= link_to "ログアウト",destroy_user_session_path, method: :delete %>
+            </li>
+          </ul>
+        </nav>
       <% else %>
-        <li>
-          <%= link_to "ゲストログイン", public_guest_sign_in_path, method: :post, class: "login" %>
-        </li>
-        <li>
-          <%= link_to "ログイン", new_user_session_path %>
-        </li>
-        
-        <li>
-          <%= link_to "管理者ログイン", new_admin_session_path %>
-        </li>
-        
-         <li>
-          <%= link_to "ユーザ登録", new_user_registration_path %>
-        </li>
+        <nav>
+          <ul>
+            <li>
+              <%= link_to "ゲストログイン", public_guest_sign_in_path, method: :post, class: "login" %>
+            </li>
+            <li>
+              <%= link_to "ログイン", new_user_session_path %>
+            </li>
+            <li>
+              <%= link_to "管理者ログイン", new_admin_session_path %>
+            </li>
+             <li>
+              <%= link_to "ユーザ登録", new_user_registration_path %>
+            </li>
+          </ul>
+        </nav>
       <% end %>
-      <%= render 'public/searches/search' %>
-      <%= link_to 'カテゴリから選ぶ', categories_path %>
     </header>
     <%= yield %>
+    <footer>
+      <p class="footer-text">
+        Copyright © 2023 HOME CLEAN RECIPE inc. All Rights Reserved.
+      </p>
+    </footer>
   </body>
   
 </html>

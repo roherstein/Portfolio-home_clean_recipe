@@ -1,6 +1,11 @@
 class Post < ApplicationRecord
   has_one_attached :post_image
   belongs_to :user
+  
+  validates :title, presence: true, length: { maximum: 20 }
+  validates :introduction, length: { maximum: 10 }
+  validates :introduction, presence: true, on: :publicize
+  
   has_many :cleaning_recipes, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :cleaning_tools, dependent: :destroy
@@ -27,5 +32,5 @@ class Post < ApplicationRecord
     @post = Post.where("title LIKE?","%#{keyword}%")
   end
   
-  validates :title, length: { maximum: 20 }, on: :publicize
+
 end

@@ -7,24 +7,20 @@ class Public::PostsController < ApplicationController
   end
   
   def create
-    @post = Post.new(post_params)
-    @post.user_id = current_user.id
-    if params[:post] 
-      if @post.save(context: :publicize)
-        flash[:notice]="投稿が完了しました！"
-        redirect_to post_path(@post)
-      else
-        flash.now[:notice]="投稿できませんでした。お手数ですが、入力内容をご確認の上、再度お試しください。"
-        render :new
-      end
+    @post = current_user.posts.build(post_params)
+    @post.is_publish = false if draft?
+    if @post.is_publish?
+      valid = @post.valid?(:publicize)
     else
-      if @post.update(is_publish: false) 
-        flash[:notice]="下書き保存しました！"
-        redirect_to  users_mypage_path
-      else
-        flash.now[:notice]="保存ができませんでした。お手数ですが、入力内容をご確認の上、再度お試しください。"
-        render :new
-      end
+      valid = @post.valid?
+    end
+    if valid
+      @post.save!
+      flash[:notice] = (draft? ? "下書き保存しました！" : "投稿が完了しました！")
+      redirect_to post_path(@post)
+    else
+      flash.now[:notice] = (draft? ? "保存ができませんでした。" : "投稿できませんでした。") + "お手数ですが、入力内容をご確認の上、再度お試しください。"
+      render :new
     end
   end
   
@@ -40,38 +36,19 @@ class Public::PostsController < ApplicationController
   
   def update
     @post = Post.find(params[:id])
-    @post.update(post_params)
-    redirect_to post_path(@post)
-    
-    #下書き更新
-    if params[:publicize_draft] 
-      @post.attributes = post_params.merge(is_publish: true)
-      if @post.save(context: :publicize)
-        flash[:notice]="下書きのレシピを投稿しました！"
-        redirect_to post_path(@post)
-      else
-        @post.is_publish = false
-        flash.now[:notice]="投稿ができませんでした。お手数ですが、入力内容をご確認の上、再度お試しください。"
-        render :edit
-      end
-    #公開済みの投稿を更新
-    elsif params[:update_post]
-      if @post.update(is_publish: false) 
-        flash[:notice]="下書き保存しました！"
-        redirect_to  users_mypage_path
-      else
-        flash.now[:notice]="保存ができませんでした。お手数ですが、入力内容をご確認の上、再度お試しください。"
-        render :edit
-      end
-    #下書きの更新
+    @post.is_publish = true if change_publish?
+    if @post.is_publish?
+      valid = @post.valid?(:publicize)
     else
-      if @post.update(is_publish: false) 
-        flash[:notice]="下書き保存しました！"
-        redirect_to  users_mypage_path
-      else
-        flash.now[:notice]="保存ができませんでした。お手数ですが、入力内容をご確認の上、再度お試しください。"
-        render :edit
-      end
+      valid = @post.valid?
+    end
+    if valid
+      @post.update!(post_params)
+      flash[:notice] = update_message_success
+      redirect_to post_path(@post)
+    else
+      flash.now[:notice] = update_message_faild
+      render :edit
     end
   end
   
@@ -110,5 +87,40 @@ class Public::PostsController < ApplicationController
       { :category_ids=> [] },
       cleaning_tools_attributes:[:id, :post_id, :cleaning_tool_name, :_destroy],
       cleaning_recipes_attributes:[:id, :post_id, :cleaning_recipe, :recipe_image, :_destroy])
+  end
+  
+  def draft?
+    params.keys.include?('draft_post')
+  end
+  
+  def change_publish?
+    params.keys.include?('change_publish')
+  end
+  
+  def update_message_success
+    keys = params.keys
+    if keys.include?('update_draft')
+      "下書きを更新しました！"
+    elsif keys.include?('change_publish')
+      "下書きのレシピを投稿しました！"
+    elsif keys.include?('update_post')
+      "投稿を更新しました！"
+    else
+      "更新しました！"
+    end
+  end
+  
+  def update_message_faild
+    keys = params.keys
+    if keys.include?('update_draft')
+      word = "下書きの更新ができませんでした。"
+    elsif keys.include?('change_publish')
+      word = "投稿ができませんでした。"
+    elsif keys.include?('update_post')
+      word = "投稿の更新ができませんでした。"
+    else
+      word + "更新できませんでした。"
+    end
+    word + "お手数ですが、入力内容をご確認の上、再度お試しください。"
   end
 end

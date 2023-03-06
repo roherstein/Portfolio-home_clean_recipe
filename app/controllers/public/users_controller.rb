@@ -3,8 +3,8 @@ class Public::UsersController < ApplicationController
   
   def mypage
     @user = User.find(current_user.id)
-    @posts = @user.posts.where(is_publish: true)
-    @draft_posts = @user.posts.where(is_publish: false)
+    @posts = @user.posts.where(is_publish: true).page(params[:page]).per(20)
+    @draft_posts = @user.posts.where(is_publish: false).page(params[:page]).per(20)
   end
   
   def edit

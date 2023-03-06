@@ -1,3 +1,4 @@
+ <%= flash[:notice] %>
 <div class="container">
   <h4>投稿編集</h4>
   <div class="row">
@@ -24,30 +25,24 @@
       </div>
       <div class="row">
         <span>用意するもの</span>
-        
-        <%= link_to_add_association "追加ボタン", f, :cleaning_tools, 
-          class: 'add_fields',
+        <%= link_to_add_association "追加ボタン", f, :cleaning_tools, class: 'add_fields',
           data: {
             association_insertion_node: '#detail-association-insertion-point',
             association_insertion_method: 'after'
             }
         %>
         
-        <div id="detail-association-insertion-point"></div>
-        <%= f.fields_for :cleaning_tools do |form| %>
-          <%= render "cleaning_tool_fields", f: form %>
-        <% end %>
-        
-       
-        
+        <div id="detail-association-insertion-point">
+          <%= f.fields_for :cleaning_tools do |form| %>
+            <%= render "cleaning_tool_fields", f: form %>
+          <% end %>
+        </div>
       </div>
       
       <div class="row">
         <span>掃除方法</span>
         <div class="add-botton-box">
-          <%= link_to_add_association "追加ボタン", f, :cleaning_recipes,
-            class: 'add_fields',
-            id: 'add-btn',
+          <%= link_to_add_association "追加ボタン", f, :cleaning_recipes, class: 'add_fields', id: 'add-btn',
             data: {
               association_insertion_node: '#detail-association-insertion-point2',
               association_insertion_method: 'append'
@@ -55,15 +50,22 @@
           %>
         </div>
         <%#= f.fields_for :recipe_image,accept: "image/*" %>
-        <!--<%#= f.fields_for :cleaning_recipe, placeholder: "説明文" %>-->
-        <div id="detail-association-insertion-point2"></div>
-        
-        <%= f.fields_for :cleaning_recipes do |form| %>
-          <%= render "cleaning_recipe_fields", f: form %>
-        <% end %>
+        <%#= f.fields_for :cleaning_recipe, placeholder: "説明文" %>
+        <div id="detail-association-insertion-point2">
+          <%= f.fields_for :cleaning_recipes do |form| %>
+            <%= render "cleaning_recipe_fields", f: form %>
+          <% end %>
+        </div>
       </div>
-      <%= link_to "削除", post_path(@post), method: :delete %>
-      <%= f.submit "更新", class: "btn btn-success" %>
+      <div class="row">
+        <% if @post.is_publish == false %>
+          <%= f.submit "上書き保存", :name => 'update_draft', class: "btn btn-primary" %>
+          <%= f.submit "投稿", :name => 'chnge_publish', class: "btn btn-success" %>
+        <% else @post.is_publish == true %>
+          <%= f.submit "更新", :name => 'update_post', class: "btn btn-success" %>
+        <% end %>
+        <%= link_to "削除", post_path(@post), method: :delete, class: "btn btn-danger" %>
+      </div>
     <% end %>
   </div>
 </div>
