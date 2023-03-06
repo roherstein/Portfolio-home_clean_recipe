@@ -4,7 +4,7 @@ class Post < ApplicationRecord
   has_many :cleaning_recipes, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :cleaning_tools, dependent: :destroy
-  has_many :post_categories, dependent: :destroy
+  has_many :post_categories , dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :categories, :through => :post_categories
   accepts_nested_attributes_for :cleaning_tools, allow_destroy: true
@@ -14,7 +14,7 @@ class Post < ApplicationRecord
   def get_post_image(width,height)
     unless post_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      profile_image.attach(io:File.open(file_path),filename: 'no_image.jpg',content_type: 'image/jpeg')
+      post_image.attach(io:File.open(file_path),filename: 'no_image.jpg',content_type: 'image/jpeg')
     end
     post_image.variant(resize_to_limit:[width,height]).processed
   end
@@ -27,4 +27,5 @@ class Post < ApplicationRecord
     @post = Post.where("title LIKE?","%#{keyword}%")
   end
   
+  validates :title, length: { maximum: 20 }, on: :publicize
 end

@@ -14,7 +14,7 @@
     <header>
       <% if admin_signed_in? then %>
         <li>
-          <%= link_to "ロゴ", admin_posts_path %>
+          <%= link_to "ロゴ　トップページ", admin_posts_path %>
         </li>
         <li>
           <%= link_to "ユーザ一覧", admin_users_path %>
@@ -27,7 +27,7 @@
         </li>
       <% elsif user_signed_in? then %>
         <li>
-          <%= link_to "ロゴ", root_path %>
+          <%= link_to "ロゴ トップページ", root_path %>
         </li>
         <li>
           <%= link_to "マイページ", users_mypage_path %>
@@ -58,6 +58,7 @@
         </li>
       <% end %>
       <%= render 'public/searches/search' %>
+      <%= link_to 'カテゴリから選ぶ', categories_path %>
     </header>
     <%= yield %>
   </body>

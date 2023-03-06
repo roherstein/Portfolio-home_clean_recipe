@@ -1,6 +1,6 @@
 class Admin::PostsController < ApplicationController
   def index
-    @posts = Post.all.where(is_publish:true)
+    @posts = Post.page(params[:page])
   end
   
   def show

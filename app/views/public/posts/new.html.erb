@@ -35,13 +35,11 @@
               } 
           %>
         </div>
-        <!--<%#= f.text_field :cleaning_tool %>-->
-        <div id="detail-association-insertion-point"></div>
-        
-        <%= f.fields_for :cleaning_tools do |form| %>
-          <%= render "cleaning_tool_fields", f: form %>
-        <% end %>
-        
+        <div id="detail-association-insertion-point">
+          <%= f.fields_for :cleaning_tools do |form| %>
+            <%= render "cleaning_tool_fields", f: form %>
+          <% end %>
+        </div>
       </div>
       <div class="row">
         <span>掃除方法</span>
@@ -55,16 +53,14 @@
               } 
           %>
         </div>
-        <%#= f.fields_for :recipe_image,accept: "image/*" %>
-        <!--<%#= f.fields_for :cleaning_recipe, placeholder: "説明文" %>-->
-        <div id="detail-association-insertion-point2"></div>
-        
-        <%= f.fields_for :cleaning_recipes do |form| %>
-          <%= render "cleaning_recipe_fields", f: form %>
-        <% end %>
+        <div id="detail-association-insertion-point2">
+          <%= f.fields_for :cleaning_recipes do |form| %>
+            <%= render "cleaning_recipe_fields", f: form %>
+          <% end %>
+        </div>
       </div>
-
-      <%= f.submit "投稿", class: "btn btn-success" %>
+      <%= f.submit "下書き保存", :name => 'draft_post', class: "btn btn-primary" %>
+      <%= f.submit "投稿", :name => 'post', class: "btn btn-success" %>
     <% end %>
   </div>
 </div>

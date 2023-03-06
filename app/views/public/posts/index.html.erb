@@ -2,11 +2,29 @@
   <h1>投稿一覧</h1>
   <div class="row">
     <% @posts.each do |post| %>
-      <%= link_to post.title, post_path(post.id) do %>
-        <%= post.like %>
-        <%= post.category %>
-        <%= post.created_at %>
-      <% end %>
+      <div class="col-md-4">
+        <%= link_to post_path(post.id) do %>
+          <div class="row">
+            <%= image_tag post.get_post_image(250,200) %>
+          </div>
+          <div class="row">
+            <%= image_tag post.user.get_profile_image(30,30) %>
+            <% if post.user.user_name.present? %>
+              <%= post.user.user_name %>
+            <% else %>
+              未登録
+            <% end %>
+          </div>
+          <div class="row">
+            <%= post.title %><br>
+            ♡<%= post.likes.count %><br>
+            <% post.categories.each do |category| %>
+              <%= category.category_name %><br>
+            <% end %>
+            <%= post.created_at.strftime("%Y-%m-%d") %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
     <%= paginate @posts %>
   </div>

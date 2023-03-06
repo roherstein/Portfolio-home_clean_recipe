@@ -1,10 +1,11 @@
+<p><%= flash[:notice] %></p>
 <div class="container">
     <h1>投稿詳細</h1>
     <div class="row">
       <span>タイトル</span>
       <%= @post.title %>
       <% if @post.user == current_user %>
-        <%= link_to "投稿編集する", edit_user_path(current_user.id) %>
+        <%= link_to "投稿編集する", edit_post_path(@post) %>
       <% end %>
     </div>
     <div class="row">
@@ -13,11 +14,11 @@
       <%= link_to @user.user_name, user_path(@user.id) %>
       <span>いいね</span>
       <% if @post.liked_by?(current_user) %>
-        <%= link_to likes_path(@post), method: :delete do %>
+        <%= link_to post_likes_path(@post), method: :delete do %>
           ♥<%= @post.likes.count %>
         <% end %>
       <% else %>
-        <%= link_to likes_path(@post), method: :post do %>
+        <%= link_to post_likes_path(@post), method: :post do %>
           ♡<%= @post.likes.count %>
         <% end %>
       <% end %>
@@ -43,7 +44,7 @@
     <div class="row">
       <span>掃除方法</span>
       <% @post.cleaning_recipes.each do |cleaning_recipe| %>
-        <%= image_tag cleaning_recipe.get_recipe_image, size: "100x100" %>
+        <%= image_tag cleaning_recipe.get_recipe_image(100,100) %>
         <%= cleaning_recipe.cleaning_recipe %>
       <% end %>
       
@@ -58,11 +59,11 @@
         <p>コメント件数：<%= @post.comments.count %></p>
         
         <% @post.comments.each do |comment| %>
-          <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
+          <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
           <%= comment.user.user_name %>
-          <%= comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+          <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
           <% if comment.user == current_user %>
-            <%= link_to "削除する", post_comment_path, method: :delete %>
+            <%= link_to "削除する", post_comment_path(comment.id), method: :delete %>
           <% end %>
         <% end %>
       </div>

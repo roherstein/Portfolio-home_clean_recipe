@@ -1,8 +1,8 @@
 <div class="nested-fields">
   <table>
     <tr>
-      <td class="td-fixed-cleaning_tool">
-        <%= f.text_field :cleaning_tool_name %>
+      <td class="td-fixed-cleaning_recipe">
+        <%= f.text_area :cleaning_tool_name, placeholder: "説明文" %>
       </td>
       <td class="td-fixed-delete">
         <%= link_to_remove_association "削除", f %>

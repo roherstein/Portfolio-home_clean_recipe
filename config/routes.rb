@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get 'categories' => 'categories#index'
-    get 'categories/search' => 'categories#search'
     get 'users/mypage' => 'users#mypage'
     get 'users/confirm' => 'users#confirm'
     get 'users/withdrawal' => 'users#withdrawal'
@@ -33,9 +32,16 @@ Rails.application.routes.draw do
     post 'search' => 'searches#search'
     resources :users, only:[:show,:edit,:update]
     resources :posts do
-      resources :comments, only:[:index,:create,:destroy]
+      resources :comments, only:[:create,:destroy]
+      collection do
+        get :my_comments
+      end
+      resource :likes, only:[:create,:destroy]
+      collection do
+        get :my_likes
+      end
     end
-    resource :likes, only:[:index,:create,:destroy]
+    
   end
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

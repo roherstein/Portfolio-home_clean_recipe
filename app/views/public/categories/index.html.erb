@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
-    <%= @category.each do %>
-      <%= link_to posts_path do %>
-        <%= @category.category_name %>
+    <% @category.each do |category| %>
+      <%= link_to posts_path(category_id: category.id) do %>
+        <%= category.category_name %>
       <% end %>
     <% end %>
   </div>

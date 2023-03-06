@@ -1,29 +1,44 @@
 <div class="container">
   <h1>マイページ</h1>
   <div class="row">
+    <div class="col-md-6">
       <%= link_to user_path(current_user) do %>
         <%= image_tag @user.get_profile_image(100,100) %>
       <% end %>
       <p>プロフィール</p>
       <%= @user.self_introduction %>
-      <%= link_to "いいねした投稿一覧", likes_path %>
-      <%= link_to "コメント一覧", likes_path %>
-      <p>作成中レシピ</p>
-      <% @draft_posts.each do |draft_posts| %>
-        <%= link_to "タイトル", post_path(draft_posts.id) %>
-        <%= draft_posts.created_at %>
-      <% end %>
+    </div>
+    <div class="col-md-6">
+      <%= link_to "いいねした投稿一覧", my_likes_posts_path %><br>
       
+      <%= link_to "コメントした一覧", my_comments_posts_path %>
+      <p>作成中のお掃除レシピ</p>
+        <% if @draft_posts.present? %>
+          <% @draft_posts.each do |draft_post| %>
+          <div class="row">
+            <%= link_to draft_post.title, post_path(draft_posts.id) %>
+            <%= draft_posts.created_at.strftime("%Y-%m-%d") %>
+          </div>
+          <% end %>
+        <% else %>
+          現在作成中のレシピはありません
+        <% end %>
       <%= link_to "作成中投稿一覧", posts_draft_path(@draft_posts) %>
       
-      <p>投稿レシピ</p>
-      <% @posts.each do |posts| %>
-        <%= link_to "タイトル", post_path(posts.id) %>
-        <%= posts.likes %>
-        <%= posts.category %>
-        <%= posts.created_at %>
-      <% end %>
+      <p>投稿したお掃除レシピ</p>
+        <% if @posts.present? %>
+          <% @posts.each do |post| %>
+            <div class="row">
+              <%= link_to post.title, post_path(post.id) %>
+              <%= post.created_at.strftime("%Y-%m-%d") %>
+              <%= link_to "編集", edit_post_path(post.id) %>
+            </div>
+          <% end %>
+        <% else %>
+          現在投稿したレシピはありません
+        <% end %>
       
       <%= link_to "投稿一覧", posts_path(@posts) %>
+    </div>
   </div>
 </div>

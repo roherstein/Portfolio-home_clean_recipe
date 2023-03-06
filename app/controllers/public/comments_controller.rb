@@ -1,15 +1,16 @@
 class Public::CommentsController < ApplicationController
     
   def index
-     
+    comments = Post.where(current_user_id: current_user.id).pluck(:post_id)
+    @commnet_posts = Post.find(comments)
   end
   
   def create
-    @post = Post.find(params[post_id])
+    @post = Post.find(params[:post_id])
     @comment = current_user.comments.new(comment_params)
     @comment.post_id = @post.id
     @comment.save
-    redirect_to post_path
+    redirect_to post_path(@post)
   end
   
   def destroy
