@@ -3,6 +3,7 @@
   <h4>投稿編集</h4>
   <div class="row">
     <%= form_with model: @post, url: post_path(@post), method: :patch do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
       <div class="row">
         <span>タイトル</span>
         <%= f.text_field :title %>
@@ -60,11 +61,14 @@
       <div class="row">
         <% if @post.is_publish == false %>
           <%= f.submit "上書き保存", :name => 'update_draft', class: "btn btn-primary" %>
-          <%= f.submit "投稿", :name => 'chnge_publish', class: "btn btn-success" %>
+          <%= f.submit "下書き投稿", :name => 'change_publish', class: "btn btn-success" %>
+          <%= link_to "削除", post_path(@post), method: :delete, 
+            data: {confirm: "下書きを削除します。よろしいですか？"}, class: "btn btn-danger"%>
         <% else @post.is_publish == true %>
-          <%= f.submit "更新", :name => 'update_post', class: "btn btn-success" %>
+          <%= f.submit "投稿を更新", :name => 'update_post', class: "btn btn-primary" %>
+          <%= link_to "削除", post_path(@post), method: :delete, 
+            data: {confirm: "投稿を削除します。よろしいですか？"}, class: "btn btn-danger"%>
         <% end %>
-        <%= link_to "削除", post_path(@post), method: :delete, class: "btn btn-danger" %>
       </div>
     <% end %>
   </div>

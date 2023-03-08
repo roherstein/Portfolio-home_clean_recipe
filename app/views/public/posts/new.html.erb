@@ -1,8 +1,9 @@
- <%= flash[:notice] %>
+<%= flash[:notice] %>
 <div class="container">
   <h4>新規投稿</h4>
   <div class="row">
     <%= form_with model: @post, url: posts_path do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
       <div class="row">
         <span>タイトル</span>
         <%= f.text_field :title %>
@@ -64,4 +65,5 @@
       <%= f.submit "投稿", name: "true_post", class: "btn btn-success" %>
     <% end %>
   </div>
+  
 </div>

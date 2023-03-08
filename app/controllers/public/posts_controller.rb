@@ -9,16 +9,22 @@ class Public::PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     @post.is_publish = false if draft?
+    
     if @post.is_publish?
+      #公開時
       valid = @post.valid?(:publicize)
     else
+      #非公開時
       valid = @post.valid?
     end
+    
     if valid
+      #バリデーション実行時エラーがない場合
       @post.save!
       flash[:notice] = (draft? ? "下書き保存しました！" : "投稿が完了しました！")
       redirect_to post_path(@post)
     else
+      #エラーがある場合
       flash.now[:notice] = (draft? ? "保存ができませんでした。" : "投稿できませんでした。") + "お手数ですが、入力内容をご確認の上、再度お試しください。"
       render :new
     end
@@ -36,21 +42,33 @@ class Public::PostsController < ApplicationController
   
   def update
     @post = Post.find(params[:id])
-    @post.is_publish = true if change_publish?
-    if @post.is_publish?
-      valid = @post.valid?(:publicize)
-    else
-      valid = @post.valid?
-    end
-    if valid
-      @post.update!(post_params)
-      flash[:notice] = update_message_success
-      redirect_to post_path(@post)
-    else
-      flash.now[:notice] = update_message_faild
+    
+        
+    if @post.invalid?
+      # 常に行うバリデーションでエラー
       render :edit
+      return
     end
+    
+    if (@post.is_publish || change_publish?) && @post.invalid?(:publisize)
+      # 下書き投稿または投稿を更新したいときにするバリデーションでエラー
+      render :edit
+      return
+    end
+    
+    # ここに来たということはバリデーションが通っている
+    
+    # 下書き投稿の場合に投稿にする
+    @post.is_publish = true if change_publish?
+    
+    # 更新処理
+    @post.update(post_params)
+    flash[:notice] = update_message_success
+    redirect_to post_path(@post)
   end
+
+
+ 
   
   def destroy
     @post = Post.find(params[:id])
@@ -60,10 +78,11 @@ class Public::PostsController < ApplicationController
   
   def index
     if params[:category_id] then
-      post_ids = PostCategory.where(category_id: params[:category_id]).pluck(:post_id)
+      post_ids = PostCategory.includes(:post).where(category_id: params[:category_id],posts: {is_publish: true}).pluck(:post_id)
       @posts = Kaminari.paginate_array(Post.find(post_ids)).page(params[:page])
     else
-      @posts = Post.page(params[:page])
+      publish_posts = Post.where(is_publish: true)
+      @posts = Kaminari.paginate_array(publish_posts).page(params[:page]).per(12)
     end
   end
   
@@ -77,17 +96,14 @@ class Public::PostsController < ApplicationController
     @comment_posts = Post.find(comments)
   end
   
-  private
-  def post_params
-    params.require(:post).permit( 
-      :title,
-      :post_image,
-      :introduction,
-      :is_publish,
-      { :category_ids=> [] },
-      cleaning_tools_attributes:[:id, :post_id, :cleaning_tool_name, :_destroy],
-      cleaning_recipes_attributes:[:id, :post_id, :cleaning_recipe, :recipe_image, :_destroy])
+  def draft
+    @posts = Post.where(is_publish: false, user_id: current_user.id )
+    @draft_posts = Kaminari.paginate_array(@posts).page(params[:page]).per(6)
+    # posts = Post.where(is_publish: false).pluck(:post_id)
+    # @draft_posts = Kaminari.paginate_array(Post.find(post_id)).page(params[:page])
   end
+  
+  # 本当はここにストロングパラメータがあった
   
   def draft?
     params.keys.include?('draft_post')
@@ -122,5 +138,17 @@ class Public::PostsController < ApplicationController
       word + "更新できませんでした。"
     end
     word + "お手数ですが、入力内容をご確認の上、再度お試しください。"
+  end
+  
+  private
+  def post_params
+    params.require(:post).permit( 
+      :title,
+      :post_image,
+      :introduction,
+      :is_publish,
+      { :category_ids=> [] },
+      cleaning_tools_attributes:[:id, :post_id, :cleaning_tool_name, :_destroy],
+      cleaning_recipes_attributes:[:id, :post_id, :cleaning_recipe, :recipe_image, :_destroy])
   end
 end

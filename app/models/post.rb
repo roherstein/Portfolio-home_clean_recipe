@@ -3,8 +3,8 @@ class Post < ApplicationRecord
   belongs_to :user
   
   validates :title, presence: true, length: { maximum: 20 }
-  validates :introduction, length: { maximum: 10 }
-  validates :introduction, presence: true, on: :publicize
+  validates :introduction, length: { maximum: 200 }, on: :publisize
+  validates :cleaning_recipes, presence: true, on: :publisize
   
   has_many :cleaning_recipes, dependent: :destroy
   has_many :likes, dependent: :destroy

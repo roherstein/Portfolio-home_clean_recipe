@@ -10,15 +10,15 @@
       <%= @user.self_introduction %>
     </div>
     <div class="col-md-6">
-      <%= link_to "いいねした投稿一覧", my_likes_posts_path %><br>
+      <%= link_to "いいねした投稿一覧", my_likes_posts_path %>
       
       <%= link_to "コメントした一覧", my_comments_posts_path %>
-      <p>作成中のお掃除レシピ</p>
+      <p>作成中のお掃除レシピ</p>全<%= @draft_posts.count %>件
         <% if @draft_posts.present? %>
           <% @draft_posts.each do |draft_post| %>
           <div class="row">
-            <%= link_to draft_post.title, post_path(draft_posts.id) %>
-            <%= draft_posts.created_at.strftime("%Y-%m-%d") %>
+            <%= link_to draft_post.title, post_path(draft_post.id) %>
+            <%= draft_post.created_at.strftime("%Y-%m-%d") %>
           </div>
           <% end %>
         <% else %>
@@ -26,7 +26,7 @@
         <% end %>
       <%= link_to "作成中投稿一覧", posts_draft_path(@draft_posts) %>
       
-      <p>投稿したお掃除レシピ</p>
+      <p>投稿したお掃除レシピ</p>全<%= @posts.count %>件
         <% if @posts.present? %>
           <% @posts.each do |post| %>
             <div class="row">

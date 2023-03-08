@@ -1,0 +1,32 @@
+<div class="container">
+  <h1>作成中投稿一覧</h1>
+  全<%= @posts.count %>件
+    <div class="row">
+      <% @draft_posts.each do |post| %>
+        <div class="col-md-4">
+          <%= link_to post_path(post.id) do %>
+            <div class="row">
+              <%= image_tag post.get_post_image(250,200) %>
+            </div>
+            <div class="row">
+              <%= image_tag post.user.get_profile_image(50,50) %>
+              <% if post.user.user_name.present? %>
+                <%= post.user.user_name %>
+              <% else %>
+                未登録
+              <% end %>
+            </div>
+            <div class="row">
+              <%= post.title %><br>
+              ♡<%= post.likes.count %><br>
+              <% post.categories.each do |category| %>
+                <%= category.category_name %><br>
+              <% end %>
+              <%= post.introduction %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <%= paginate @draft_posts %>
+    </div>
+</div>

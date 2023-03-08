@@ -1,4 +1,4 @@
 class CleaningTool < ApplicationRecord
   belongs_to :post
-  validates :cleaning_tool_name, presence: true
+  validates :cleaning_tool_name, presence: true, on: :publicize
 end

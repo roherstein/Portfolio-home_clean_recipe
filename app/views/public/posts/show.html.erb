@@ -50,6 +50,7 @@
       
       <div>
         <%= form_with model: [@post, @post_comment] do |f| %>
+        <%= render 'layouts/error_messages', model: f.object %>
           <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに記述" %>
           <%= f.submit "送信する" %>
         <% end %>
@@ -63,7 +64,8 @@
           <%= comment.user.user_name %>
           <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
           <% if comment.user == current_user %>
-            <%= link_to "削除する", post_comment_path(comment.id), method: :delete %>
+            <%#= link_to "削除する", post_comment_path(comment.id), method: :delete,
+              data: {confirm: "コメントを削除します。よろしいですか？"} %>
           <% end %>
         <% end %>
       </div>

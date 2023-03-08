@@ -1,15 +1,13 @@
 <div class="container">
   <h1>検索結果一覧</h1>
   <div class="row">
-
+    　該当ユーザ
         <% @users.each do |user| %>
           <%= link_to "#{user.user_name}", user_path(user.id) %>
         <% end %>
-
+      該当の
         <% @posts.each do |post| %>
           <%= link_to post.title, search_path %>
         <% end %>
-    
- 
   </div>
 </div>

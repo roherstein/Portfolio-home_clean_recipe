@@ -19,13 +19,14 @@
                 <%= post.title %><br>
                 ♡<%= post.likes.count %><br>
                 <% post.categories.each do |category| %>
-                  <%= category.category_name %><br>
+                  <%= category.category_name %>
                 <% end %>
                 <%= post.introduction %>
               </div>
             <% end %>
           </div>
         <% end %>
+        <%= paginate @posts %>
     </div>
 </div>
 

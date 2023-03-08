@@ -3,6 +3,7 @@
   <h1>ユーザ情報</h1>
   <div class="row">
     <%= form_with model: @user, url: user_path  do |f| %>
+    <%= render 'layouts/error_messages', model: f.object %>
       <p>ニックネーム</p>
       <%= f.text_field :user_name %>
       <p>メールアドレス</p>
