@@ -2,72 +2,102 @@
 <div class="container">
     <h1>投稿詳細</h1>
     <div class="row">
-      <span>タイトル</span>
-      <%= @post.title %>
-      <% if @post.user == current_user %>
-        <%= link_to "投稿編集する", edit_post_path(@post) %>
-      <% end %>
-    </div>
-    <div class="row">
-      <span>トップ画像</span>
-      <%= image_tag @post.get_post_image(100,100) %>
-      <%= link_to @user.user_name, user_path(@user.id) %>
-      <span>いいね</span>
-      <% if @post.liked_by?(current_user) %>
-        <%= link_to post_likes_path(@post), method: :delete do %>
-          ♥<%= @post.likes.count %>
+      <div class="col-5">
+        <%= image_tag @post.get_post_image(200,200) %>
+        
+      </div>
+      <div class="col-5">
+        <div class="row">
+          タイトル：<%= @post.title %>
+        </div>
+        <div class="row">
+          <span>説明：</span>
+          <%= @post.introduction %>
+        </div>
+        <div class="row">
+          <%= image_tag @user.get_profile_image(50,50) %>
+          <%= link_to @user.user_name, user_path(@user.id) %>
+        </div>
+        <div class="row">
+          <span>いいね</span>
+          <% if @post.liked_by?(current_user) %>
+            <%= link_to post_likes_path(@post), method: :delete do %>
+              ♥<%= @post.likes.count %>
+            <% end %>
+          <% else %>
+            <%= link_to post_likes_path(@post), method: :post do %>
+              ♡<%= @post.likes.count %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="row">
+          <span>カテゴリ：</span>
+          <% @post.categories.each do |category| %>
+            <%= category.category_name %>
+          <% end %>
+        </div>
+        <div class="row">
+          <span>作成日時：</span>
+          <%= @post.created_at.strftime('%Y/%m/%d') %>
+        </div>
+      </div>
+      <div class="col-2">
+        <% if @post.user == current_user %>
+          <%= link_to "編集", edit_post_path(@post), class: "btn btn-success" %>
         <% end %>
-      <% else %>
-        <%= link_to post_likes_path(@post), method: :post do %>
-          ♡<%= @post.likes.count %>
-        <% end %>
-      <% end %>
-     <span>作成日時</span>
-     <%= @post.created_at.strftime('%Y/%m/%d') %>
+      </div>
     </div>
+
     <div class="row">
-      <span>説明</span>
-      <%= @post.introduction %>
-    </div>
-    <div class="row">
-      <span>カテゴリ</span>
-      <% @post.categories.each do |category| %>
-        <%= category.category_name %>
-      <% end %>
-    </div>
-    <div class="row">
-      <span>用意するもの</span>
+      <div class="col-12">
+      <span>掃除道具</span>
+      </div>
       <% @post.cleaning_tools.each do |cleaning_tool| %>
-        <%= cleaning_tool.cleaning_tool_name %>
+        ・<%= cleaning_tool.cleaning_tool_name %><br>
+      <% end %>
+      <div class="col-12">
+      <span>掃除方法</span>
+      </div>
+      <% @post.cleaning_recipes.each do |cleaning_recipe| %>
+        <div class="col-6">
+          <%= image_tag cleaning_recipe.get_recipe_image(100,100) %>
+        </div>
+        <div class="col-6">
+          <%= cleaning_recipe.cleaning_recipe %>
+        </div>
       <% end %>
     </div>
     <div class="row">
-      <span>掃除方法</span>
-      <% @post.cleaning_recipes.each do |cleaning_recipe| %>
-        <%= image_tag cleaning_recipe.get_recipe_image(100,100) %>
-        <%= cleaning_recipe.cleaning_recipe %>
-      <% end %>
-      
-      <div>
+      <div class="col-12">
         <%= form_with model: [@post, @post_comment] do |f| %>
         <%= render 'layouts/error_messages', model: f.object %>
           <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに記述" %>
-          <%= f.submit "送信する" %>
+          <%= f.submit "送信", class: "btn btn-success" %>
         <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p>コメント件数：<%= @post.comments.count %></p>
       </div>
       
-      <div>
-        <p>コメント件数：<%= @post.comments.count %></p>
-        
-        <% @post.comments.each do |comment| %>
-          <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
+      <% @post.comments.each do |comment| %>
+        <div class="col-2">
+          <%= image_tag comment.user.get_profile_image(50,50) %>
           <%= comment.user.user_name %>
-          <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+        </div>
+        <div class="col-6">
+          <%= comment.comment %>
+        </div>
+        <div class="col-2">
+          <%= comment.created_at.strftime('%Y/%m/%d') %>
+        </div>
+        <div class="col-2">
           <% if comment.user == current_user %>
-            <%#= link_to "削除する", post_comment_path(comment.id), method: :delete,
+            <%= link_to "削除", post_comment_path(comment.id), method: :delete, class: "btn btn-danger",
               data: {confirm: "コメントを削除します。よろしいですか？"} %>
           <% end %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>  
 </div>

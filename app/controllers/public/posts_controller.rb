@@ -10,24 +10,33 @@ class Public::PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     @post.is_publish = false if draft?
     
-    if @post.is_publish?
-      #公開時
-      valid = @post.valid?(:publicize)
-    else
-      #非公開時
-      valid = @post.valid?
-    end
     
-    if valid
-      #バリデーション実行時エラーがない場合
-      @post.save!
+    if @post.save
       flash[:notice] = (draft? ? "下書き保存しました！" : "投稿が完了しました！")
       redirect_to post_path(@post)
     else
-      #エラーがある場合
       flash.now[:notice] = (draft? ? "保存ができませんでした。" : "投稿できませんでした。") + "お手数ですが、入力内容をご確認の上、再度お試しください。"
       render :new
     end
+      
+    #if @post.is_publish?
+    #  #公開時
+    #  valid = @post.valid?(:publicize)
+    #else
+    #  #非公開時
+    #  valid = @post.valid?
+    #end
+    
+    #if valid
+    #  #バリデーション実行時エラーがない場合
+    #  @post.save!
+    #  flash[:notice] = (draft? ? "下書き保存しました！" : "投稿が完了しました！")
+    #  redirect_to post_path(@post)
+    #else
+    #  #エラーがある場合
+    #  flash.now[:notice] = (draft? ? "保存ができませんでした。" : "投稿できませんでした。") + "お手数ですが、入力内容をご確認の上、再度お試しください。"
+    #  render :new
+    #end
   end
   
   def show
@@ -43,15 +52,22 @@ class Public::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     
-        
-    if @post.invalid?
-      # 常に行うバリデーションでエラー
+    #if @post.invalid?
+    #  # 常に行うバリデーションでエラー
+    #  render :edit
+    #  return
+    #end
+    
+    if @post.update(post_params)
+      flash[:notice] = update_message_success
+      redirect_to post_path(@post)
+    else
       render :edit
       return
     end
-    
-    if (@post.is_publish || change_publish?) && @post.invalid?(:publisize)
-      # 下書き投稿または投稿を更新したいときにするバリデーションでエラー
+  
+    if (@post.is_publish || change_publish?) && @post.invalid?
+      # 投稿を更新したいまたは下書き投稿のときにするバリデーションでエラー
       render :edit
       return
     end
@@ -62,13 +78,10 @@ class Public::PostsController < ApplicationController
     @post.is_publish = true if change_publish?
     
     # 更新処理
-    @post.update(post_params)
-    flash[:notice] = update_message_success
-    redirect_to post_path(@post)
+    #@post.update(post_params)
+    #flash[:notice] = update_message_success
+    #redirect_to post_path(@post)
   end
-
-
- 
   
   def destroy
     @post = Post.find(params[:id])

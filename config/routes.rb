@@ -30,7 +30,11 @@ Rails.application.routes.draw do
     get 'posts/draft' => 'posts#draft'
     get 'search' => 'serches#search'
     post 'search' => 'searches#search'
-    resources :users, only:[:show,:edit,:update]
+    resources :users, only:[:show,:edit,:update] do
+      member do
+        get :post_list
+      end
+    end
     resources :posts do
       resources :comments, only:[:create,:destroy]
       collection do
