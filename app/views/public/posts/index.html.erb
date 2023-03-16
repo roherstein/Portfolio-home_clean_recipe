@@ -1,13 +1,19 @@
 <div class="container">
-  <h1>投稿一覧</h1>
   <div class="row">
     <% @posts.each do |post| %>
-      <div class="col-md-4">
+      <div class="col-lg-4 post-box">
         <%= link_to post_path(post.id) do %>
-          <div class="row">
-            <%= image_tag post.get_post_image(250,200) %>
+        <div class="col-lg-12 post-img">
+          <%= image_tag post.get_post_image(250,200) %>
+          <div class="like">
+            ♡<%= post.likes.count %>
           </div>
-          <div class="row">
+        </div>
+        <div class="col-lg-12">
+          <div class="post-title">
+            <strong><%= post.title %></strong><br>
+          </div>
+          <div class="user-info">
             <%= image_tag post.user.get_profile_image(30,30) %>
             <% if post.user.user_name.present? %>
               <%= post.user.user_name %>
@@ -15,14 +21,17 @@
               未登録
             <% end %>
           </div>
-          <div class="row">
-            <%= post.title %><br>
-            ♡<%= post.likes.count %><br>
-            <% post.categories.each do |category| %>
-              <%= category.category_name %><br>
-            <% end %>
-            <%= post.created_at.strftime("%Y-%m-%d") %>
-          </div>
+        </div>
+        <div class="col-lg-12 category-area flex-row d-flex flex-wrap">
+          <% post.categories.each do |category| %>
+            <div class=" category category-tag">
+              <%= category.category_name %>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-lg-12">
+          更新日：<%= post.updated_at.strftime("%Y-%m-%d") %>
+        </div>
         <% end %>
       </div>
     <% end %>

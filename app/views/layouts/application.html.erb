@@ -14,71 +14,107 @@
     <header class="shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand">
-            <% if admin_signed_in? %>
-              <%= link_to admin_posts_path do %>
-                <%= image_tag 'HRC_Logo.png' %>
-              <% end %>
-            <% else %>
-              <%= link_to root_path do %>
-                <%= image_tag 'HRC_Logo.png' %>
-              <% end %>
-            <% end %>
-          </a>
-          <div class="search">
-            <%= render 'public/searches/search' %>
-            <%= link_to 'カテゴリから選ぶ >>', categories_path %>
-          </div>
-          
-            <ul class="navbar-nav ml-auto">
-              <% if admin_signed_in? then %>
-                <li class="nav-list-item">
-                  <a><%= link_to "ユーザ一覧", admin_users_path %></a>
-                </li>
-                <li class="nav-list-item">
-                  <a><%= link_to "コメント一覧", admin_comments_path %></a>
-                </li>
-                <li class="nav-list-item">
-                  <a><%= link_to "ログアウト",destroy_admin_session_path, method: :delete %></a>
-                </li>
-              <% elsif user_signed_in? then %>
-                <%= link_to users_mypage_path do %>
-                  <li class="nav-list-item">
-                    <%= image_tag 'mypage-icon.png', size: "30x30" %>
-                    <div>マイページ</div>
-                  </li>
-                <% end %>
-                <%= link_to new_post_path do %>
-                  <li class="nav-list-item">
-                    <%= image_tag 'post-icon.png', size: "30x30" %>
-                    <div>投稿する</div>
-                  </li>
-                <% end %>
-                <%= link_to destroy_user_session_path, method: :delete do %>
-                  <li class="nav-list-item">
-                    <%= image_tag 'logout-icon.png', size: "30x30" %>
-                    <div>ログアウト</div>
-                  </li>
-                <% end %>
+          <div class="row" style="width: 100%">
+              <% if admin_signed_in? %>
+                <div class="col-3 d-none d-md-block ">
+                  <%= link_to admin_posts_path do %>
+                    <%= image_tag 'HRC_Logo.png' %>
+                  <% end %>
+                </div>
               <% else %>
-                <li class="nav-list-item">
-                  <a><%= link_to "ゲストログイン", public_guest_sign_in_path, method: :post, class: "login" %></a>
-                </li>
-                <li class="nav-list-item">
-                  <a><%= link_to "ログイン", new_user_session_path %></a>
-                </li>
-                <li class="nav-list-item">
-                  <a><%= link_to "管理者ログイン", new_admin_session_path %></a>
-                </li>
-                <li class="nav-list-item">
-                  <a><%= link_to "ユーザ登録", new_user_registration_path %></a>
-                </li>
+              <div class="col-3 d-none d-md-block ">
+                <%= link_to root_path do %>
+                    <%= image_tag 'HRC_Logo.png' %>
+                <% end %>
+                </div>
               <% end %>
-            </ul>
+                <div class="col-md-3 col-sm-12 col-3" style="align-self: center;">
+                  <%= render 'public/searches/search' %>
+                  <%= link_to 'カテゴリから選ぶ >>', categories_path %>
+                </div>
+              <div class="col-sm-9 col-9 justyfy-content-end">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                              aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              </div>
+ 
+              
+              <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: end;">
+                <div class="col-6">
+                  <ul class="navbar-nav ml-auto" style="display: unset !important;">
+                    
+                    <div class="row" >
+                    <% if admin_signed_in? then %>
+                      <li class="col-md-3 nav-list-item align-bottom">
+                        <%= link_to admin_users_path do %>
+                          <%= image_tag 'mypage-icon.png', size: "30x30" %>
+                          <div>ユーザ一覧</div>
+                        <% end %>
+                      </li>
+                      <li class="col-md-3 nav-list-item align-bottom">
+                        <%= link_to admin_comments_path do %>
+                          <%= image_tag 'mypage-icon.png', size: "30x30" %>
+                          <div>コメント一覧</div>
+                        <% end %>
+                      </li>
+                      <li class="col-md-3 nav-list-item align-bottom">
+                        <%= link_to destroy_admin_session_path, method: :delete do %>
+                          <%= image_tag 'mypage-icon.png', size: "30x30" %>
+                          <div>ログアウト</div>
+                        <% end %>
+                      </li>
+                      
+                    <% elsif user_signed_in? then %>
+                      <li class="col-md-3 nav-list-item align-bottom">
+                        <%= link_to users_mypage_path do %>
+                          <%= image_tag 'mypage-icon.png', size: "30x30" %>
+                          <div>マイページ</div>
+                        <% end %>
+                      </li>
+                      <li class="col-md-3 nav-list-item">
+                        <%= link_to new_post_path do %>
+                          <%= image_tag 'post-icon.png', size: "30x30" %>
+                          <div>投稿する</div>
+                        <% end %>
+                      </li>
+                      <li class="col-md-3 nav-list-item">
+                        <%= link_to destroy_user_session_path, method: :delete do %>
+                          <%= image_tag 'logout-icon.png', size: "30x30" %>
+                          <div>ログアウト</div>
+                        <% end %>
+                      </li>
+                    <% else %>
+                      <li class="col-md-4 nav-list-item">
+                        <%= link_to public_guest_sign_in_path, method: :post, class: "login" do %>
+                          <%= image_tag 'guest-icon.png', size: "30x30" %>
+                          <div>ゲストログイン</div>
+                        <% end %>
+                      </li>
+                      <li class="col-md-3 nav-list-item">
+                        <%= link_to new_user_session_path  do %>
+                          <%= image_tag 'login-icon.png', size: "30x30" %>
+                          <div>ログイン</div>
+                        <% end %>
+                      </li>
+                      <li class="col-md-3 nav-list-item">
+                        <%= link_to new_user_registration_path  do %>
+                          <%= image_tag 'registration-icon.png', size: "30x30" %>
+                          <div>ユーザ登録</div>
+                        <% end %>
+                      </li>
+                      
+                    <% end %>
+                    </div>
+                  </ul>
+                </div>
+              </div>
           </div>
         </div>
       </nav>
+      <div class="header-line"></div>
     </header>
+    
     <%= yield %>
     <footer>
       <p class="footer-text">

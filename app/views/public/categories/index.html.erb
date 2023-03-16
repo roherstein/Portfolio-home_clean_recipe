@@ -1,9 +1,11 @@
 <div class="container">
   <div class="row">
     <% @category.each do |category| %>
-      <div class="col-2">
+      <div class="col-lg-2 col-md-4 col-sm-6">
         <%= link_to posts_path(category_id: category.id) do %>
-          <%= category.category_name %>
+          <div class="category category-index">
+            <%= category.category_name %>
+          </div>
         <% end %>
       </div>
     <% end %>

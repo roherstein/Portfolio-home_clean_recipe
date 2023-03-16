@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   
   validates :email, presence: true
+  validates :password, presence: true, length:{minimum: 6 }
   
   def self.looks(keyword)
     @user = User.where("user_name LIKE?","%#{keyword}%")

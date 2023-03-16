@@ -1,8 +1,8 @@
  <%= flash[:notice] %>
  <div class="container">
-  <h1>マイページ</h1>
+  <h4>マイページ</h4>
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-lg-4">
       <%= link_to user_path(current_user) do %>
         <%= image_tag @user.get_profile_image(100,100) %>
       <% end %>
@@ -22,7 +22,7 @@
         <%= link_to "コメントした一覧", my_comments_posts_path %>
       </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-lg-8">
      
       <p>作成中のお掃除レシピ　全<%= @draft_posts.count %>件</p>
       
