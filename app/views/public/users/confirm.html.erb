@@ -1,12 +1,15 @@
 <div class="container">
   <div class="row justify-content-center">
-    <h1>本当に退会しますか？</h1>
-    退会すると、マイページはご利用できなくなります。<br>
-    退会する場合は「退会する」をクリックしてください。<br>
+      本当に退会しますか？</br>
+      退会すると、マイページはご利用できなくなります。</br>
+      退会する場合は「退会する」をクリックしてください。</br>
   </div>
-  <div class="row justify-content-center">
-    <%= link_to "退会しない", edit_user_path(@user), class: "btn btn-success" %>
-    <%= link_to "退会する", users_withdrawal_path, class: "btn btn-danger" %>
+  <div class="row comfirm">
+    <div class="col-lg-6 d-flex justify-content-center align-items-center">
+      <%= link_to "退会しない", edit_user_path(@user), class: "btn btn-success" %>
+    </div>
+    <div class="col-lg-6 d-flex justify-content-center align-items-center">
+      <%= link_to "退会する", users_withdrawal_path, class: "btn btn-danger" %>
+    </div>
   </div>
-  
 </div>

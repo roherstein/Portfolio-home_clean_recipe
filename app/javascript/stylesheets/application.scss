@@ -69,7 +69,7 @@ header{
 // 全ページ共通CSS
 
 h4{
-  margin: 30px 0px;
+  margin: 2% 0%;
 }
 
 // トップページCSS
@@ -82,14 +82,12 @@ h4{
 .post-img{
   position: relative;
   margin-bottom: 20px;
-  width: 45%;
+  width: 70%;
   
   img {
     width: 100%;
   }
-}
-
-.like{ 
+  .like{ 
   width: 4rem;
   height: 2rem;
   color:#ff69b4;
@@ -103,17 +101,13 @@ h4{
   
   position: absolute;
   top: 3%;
-  left: 60%;
+  left: 70%;
+  }
 }
 
-.category { 
-  // padding: 0.1em 0.3em;
-  // margin: 1em;
-  color: #4682b4;
-  background: #f0f8ff;
-  border: solid 0.5px #b0c4de;
-  border-radius: 10px;
-}
+
+
+
 
 .category-index { 
   padding: 0.1em 0.3em;
@@ -121,13 +115,19 @@ h4{
 }
 
 .category-tag { 
-  padding: 0.1em 0.3em;
-  margin: 0.2em;
-  
+  color: #4682b4;
+  background: #f0f8ff;
+  border: solid 0.5px #b0c4de;
+  border-radius: 10px;
 }
 
 .category-area{
   margin: 10px;
+  
+  .category { 
+  padding: 0.1em 0.3em;
+  margin: 0.2em;
+  }
 }
 
 // 詳細ページCSS
@@ -157,8 +157,6 @@ h4{
   padding: 1%;
 }
 
-
-
 .tool{
   border-bottom: solid 0.5px #afeeee;
   margin: 20px;
@@ -184,6 +182,135 @@ h4{
     padding: 2%;
     border-bottom: solid 0.5px #afeeee;
   }
+}
+
+// 作成中投稿一覧
+.num-items{
+  font-size: 80%;
+  margin: 0 0 0 20px;
+}
+
+.rough-draft{
+  .title{
+    width: 60%;
+  } 
+  .date{
+    width: 25%;
+  }
+  .edit-btn{
+    width: 15%;
+    text-align: center;
+  }
+}
+
+// 投稿済み投稿一覧CSS
+.posted{
+  
+  .title{
+    width: 50%;
+  }
+  .like{
+    width: 10%;
+  }
+  .category{
+    width: 20%;
+  }
+  .date{
+    width: 10%;
+  }
+  .edit-btn{
+    width: 10%;
+    text-align: center;
+  }
+}
+
+// いいね一覧、コメント一覧CSS
+.posted{
+  
+  .title{
+    width: 60%;
+  }
+  .like{
+    width: 10%;
+  }
+  .category{
+    width: 20%;
+  }
+  .date{
+    width: 10%;
+  }
+}
+
+// マイページCSS
+
+.profile-box{
+  width: 90%;
+  padding: 1%;
+}
+
+.self-intro{
+  width: 100%;
+  border: solid 2px #afeeee;
+  border-radius: 5%;
+  margin-bottom: 5%;
+  padding: 1%;
+}
+
+.mypage-box{
+  border: solid 2px #afeeee;
+  margin: 2%;
+}
+
+.title{
+  margin: 2% 0%;
+  border-bottom: solid 2px #afeeee;
+}
+
+.mypage-list{
+  margin: 1%;
+  padding: 1%;
+}
+
+// ユーザ情報詳細ページCSS
+
+.user-img{
+  width: 100%;
+  margin-bottom: 5%;
+  img {
+    width: 60%;
+  }
+}
+
+.profile{
+  margin: 1% 0%;
+  padding: 1% 0%;
+}
+
+.profile-list{
+  margin: 1%;
+  padding: 1%;
+}
+
+.user-info{
+  margin-bottom: 1%;
+  padding: 1% 0%;
+  
+  .form-expand{
+    width: 100%;
+  }
+  .text-area{
+    width: 100%;
+    height: 100px;
+  }
+}
+
+// ユーザ退会確認画面CSS
+
+.confirm{
+  margin-top: 5%;
+  // p{
+  //   text-align: center;
+  // }
 }
 
 // フッターCSS

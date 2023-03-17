@@ -1,57 +1,81 @@
  <%= flash[:notice] %>
  <div class="container">
-  <h4>マイページ</h4>
+  <h4><%= @user.user_name %>のマイページ</h4>
   <div class="row">
     <div class="col-lg-4">
       <%= link_to user_path(current_user) do %>
         <%= image_tag @user.get_profile_image(100,100) %>
       <% end %>
-      <div class="row">
-        <p>プロフィール</p>
-      </div>
-      <div class="row">
-        <%= @user.self_introduction %>
-      </div>
-      <div class="row">
-        <%= link_to "ユーザ情報編集", edit_user_path(current_user) %>
-      </div>
-      <div class="row">
-        <%= link_to "いいねした投稿一覧", my_likes_posts_path %>
-      </div>
-      <div class="row">
-        <%= link_to "コメントした一覧", my_comments_posts_path %>
+      <div class="row profile-box">
+        <div class="col-lg-12">
+          プロフィール
+        </div>
+        <div class="col-lg-12 self-intro">
+          <%= @user.self_introduction %>
+        </div>
+        <div class="col-lg-12">
+          <%= link_to "ユーザ情報編集", edit_user_path(current_user) %>
+        </div>
+        <div class="col-lg-12">
+          <%= link_to "いいねした投稿一覧", my_likes_posts_path %>
+        </div>
+        <div class="col-lg-12">
+          <%= link_to "コメントした一覧", my_comments_posts_path %>
+        </div>
       </div>
     </div>
+    
     <div class="col-lg-8">
-     
-      <p>作成中のお掃除レシピ　全<%= @draft_posts.count %>件</p>
-      
+      <div class="mypage-box">
+        <div class="row title">
+          <div class="col-lg-6">
+            作成中のお掃除レシピ　全<%= @draft_posts.count %>件
+          </div>
+          <div class="col-lg-6">
+            <%= link_to "作成中投稿一覧へ", posts_draft_path(@draft_posts) %>
+          </div>
+        </div>
         <% if @draft_posts.present? %>
           <% @draft_posts.each do |draft_post| %>
-          <div class="row">
+          <div class="col-lg-12 mypage-list">
             <%= link_to draft_post.title, post_path(draft_post.id) %>
-            <%= draft_post.created_at.strftime("%Y-%m-%d") %>
+            <%= draft_post.updated_at.strftime("%Y-%m-%d") %>
+            <%= link_to ">>編集", edit_post_path(draft_post.id) %>
           </div>
           <% end %>
         <% else %>
-          現在作成中のレシピはありません
+          <div class="col-lg-12">
+            現在作成中のレシピはありません
+          </div>
         <% end %>
-      <%= link_to "作成中投稿一覧へ", posts_draft_path(@draft_posts) %>
-      
-      <p>投稿したお掃除レシピ　全<%= @posts.count %>件</p>
-      
+        <div class="row justify-content-end w-100">
+          ※更新順で10件まで表示
+        </div>
+      </div>
+      <div class="mypage-box">
+        <div class="row title">
+          <div class="col-lg-6">
+            投稿したお掃除レシピ　全<%= @posts.count %>件
+          </div>
+          <div class="col-lg-6">
+            <%= link_to "投稿一覧へ", post_list_user_path(current_user.id) %>
+          </div>
+        </div>
         <% if @posts.present? %>
           <% @posts.each do |post| %>
-            <div class="row">
+            <div class="col-lg-12 mypage-list">
               <%= link_to post.title, post_path(post.id) %>
-              <%= post.created_at.strftime("%Y-%m-%d") %>
-              <%= link_to "編集", edit_post_path(post.id) %>
+              <%= post.updated_at.strftime("%Y-%m-%d") %>
+              <%= link_to ">>編集", edit_post_path(post.id) %>
             </div>
           <% end %>
         <% else %>
           現在投稿したレシピはありません
         <% end %>
-      <%= link_to "投稿一覧へ", post_list_user_path(current_user.id) %>
+        <div class="row justify-content-end w-100">
+          ※更新順で10件まで表示
+        </div>
+      </div>
     </div>
   </div>
 </div>

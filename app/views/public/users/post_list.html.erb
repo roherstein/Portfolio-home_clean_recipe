@@ -1,38 +1,41 @@
-<div class="container"></div>
-  <h1>
-    <% if @user.user_name.present? %>
-      <%= @user.user_name %>
-    <% else %>
-      ユーザネーム未登録
-    <% end %>
+<div class="container">
+  <h4>
+    <span>
+      <% if @user.user_name.present? %>
+        <%= @user.user_name %>
+      <% else %>
+        ユーザネーム未登録
+      <% end %>
       の投稿一覧
-  </h1>
-    <div class="row">
+    </span>
+    <span class="num-items">全<%= @posts.count %>件</span>
+  </h4>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th scope="col">タイトル</th>
+          <th scope="col">いいね</th>
+          <th scope="col">カテゴリ</th>
+          <th scope="col">更新日</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
         <% @posts.each do |post| %>
-          <div class="col-md-4">
-            <%= link_to post_path(post.id) do %>
-              <div class="row">
-                <%= image_tag post.get_post_image(250,200) %>
-              </div>
-              <div class="row">
-                <%= image_tag post.user.get_profile_image(50,50) %>
-                <% if post.user.user_name.present? %>
-                  <%= post.user.user_name %>
-                <% else %>
-                  未登録
-                <% end %>
-              </div>
-              <div class="row">
-                <%= post.title %><br>
-                ♡<%= post.likes.count %><br>
-                <% post.categories.each do |category| %>
-                  <%= category.category_name %>
-                <% end %>
-                <%= post.introduction %>
-              </div>
-            <% end %>
-          </div>
+          <tr class="posted">
+            <td class="title"><%= post.title %></td>
+            <td class="like">♡<%= post.likes.count %></td>
+            <td class="category">
+              <% post.categories.each do |category| %>
+                <%= category.category_name %>
+              <% end %>
+            </td>
+            <td class="date"><%= post.updated_at.strftime('%Y/%m/%d') %></td>
+            <td class="edit-btn"><%= link_to "詳細", post_path(post.id), class: "btn btn-success"  %></td>
+          </tr>
         <% end %>
-        <%= paginate @posts %>
+      </tbody>
+    </table>
+    <%= paginate @posts %>
     </div>
 </div>

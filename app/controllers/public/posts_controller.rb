@@ -102,6 +102,7 @@ class Public::PostsController < ApplicationController
   def my_likes
     likes = Like.where(user_id: current_user.id).pluck(:post_id)
     @like_posts = Post.find(likes)
+    
   end
   
   def my_comments

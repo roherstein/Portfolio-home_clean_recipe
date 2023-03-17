@@ -1,30 +1,35 @@
 <div class="container">
-  <h1>ブックマーク</h1>
-    <div class="row">
+  <h4>
+    ブックマーク
+    <span class="num-items">全<%= @like_posts.count %>件</span>
+  </h4>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th scope="col">タイトル</th>
+          <th scope="col">いいね</th>
+          <th scope="col">カテゴリ</th>
+          <th scope="col">更新日</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
         <% @like_posts.each do |post| %>
-          <div class="col-md-4">
-            <%= link_to post_path(post.id) do %>
-              <div class="row">
-                <%= image_tag post.get_post_image(250,200) %>
-              </div>
-              <div class="row">
-                <%= image_tag post.user.get_profile_image(50,50) %>
-                <% if post.user.user_name.present? %>
-                  <%= post.user.user_name %>
-                <% else %>
-                  未登録
-                <% end %>
-              </div>
-              <div class="row">
-                <%= post.title %><br>
-                ♡<%= post.likes.count %><br>
-                <% post.categories.each do |category| %>
-                  <%= category.category_name %><br>
-                <% end %>
-                <%= post.introduction %>
-              </div>
-            <% end %>
-          </div>
+          <tr class="my-likes">
+            <td class="title"><%= post.title %></td>
+            <td class="like">♡<%= post.likes.count %></td>
+            <td class="category">
+              <% post.categories.each do |category| %>
+                <%= category.category_name %>
+              <% end %>
+            </td>
+            <td class="date"><%= post.updated_at.strftime('%Y/%m/%d') %></td>
+            <td class="edit-btn"><%= link_to "詳細", post_path(post.id), class: "btn btn-success"  %></td>
+          </tr>
         <% end %>
+      </tbody>
+    </table>
+    <%#= paginate @like_posts %>
     </div>
 </div>
+
