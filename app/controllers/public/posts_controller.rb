@@ -102,12 +102,13 @@ class Public::PostsController < ApplicationController
   def my_likes
     likes = Like.where(user_id: current_user.id).pluck(:post_id)
     @like_posts = Post.find(likes)
-    
+    @page = Kaminari.paginate_array(likes).page(params[:page]).per(20)
   end
   
   def my_comments
     comments = Comment.where(user_id: current_user.id).pluck(:post_id)
     @comment_posts = Post.find(comments)
+    @page = Kaminari.paginate_array(comments).page(params[:page]).per(20)
   end
   
   def draft

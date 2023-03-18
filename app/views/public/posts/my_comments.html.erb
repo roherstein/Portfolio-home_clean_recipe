@@ -15,7 +15,7 @@
       </thead>
       <tbody>
         <% @comment_posts.each do |post| %>
-          <tr class="post">
+          <tr class="posted">
             <td class="title"><%= post.title %></td>
             <td class="like">♡<%= post.likes.count %></td>
             <td class="category">
@@ -24,12 +24,12 @@
               <% end %>
             </td>
             <td class="date"><%= post.updated_at.strftime('%Y/%m/%d') %></td>
-            <td class="edit-btn"><%= link_to "詳細", post_path(post.id), class: "btn btn-success"  %></td>
+            <td class="show-btn"><%= link_to "詳細", post_path(post.id), class: "btn btn-success"  %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
-    <%#= paginate @comment_posts %>
+    <%= paginate @page %>
     </div>
 </div>
 

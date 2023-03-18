@@ -11,7 +11,6 @@
     </div>
   </div>
   
-  
   <div class="row">
     <div class="post-img">
       <%= image_tag @post.get_post_image(400,400) %>
@@ -32,62 +31,68 @@
       </div>
     </div>
   </div>
-    <div class="row">
-        <div class="col-lg-12 intro">
-          <%= @post.introduction %>
-        </div>
-        <div class="col-lg-12 user_info">
-          作成者：<%= image_tag @user.get_profile_image(50,50) %>
-          <%= link_to @user.user_name, user_path(@user.id) %>
-        </div>
-        <div class="col-lg-12">
-          作成日時：<%= @post.created_at.strftime('%Y/%m/%d') %>
-        </div>
-        <div class="col-lg-12 category-area flex-row d-flex flex-wrap">
-          <% @post.categories.each do |category| %>
-            <div class="category category-tag">
-              <%= category.category_name %>
-            </div>
-          <% end %>
-        </div>
+  
+  <!--<div class="row">-->
+    <div class="row intro">
+      <%= @post.introduction %>
     </div>
+    <div class="row user-info">
+      <span>作成者：</span>
+      <%= image_tag @user.get_profile_image(50,50) %>
+      <%= link_to @user.user_name, user_path(@user.id) %>
+    </div>
+    <div class="row show-date">
+      <span>作成日時：</span>
+      <%= @post.created_at.strftime('%Y/%m/%d') %>
+    </div>
+    <div class="row category-area">
+      <span>カテゴリ：</span>
+      <% @post.categories.each do |category| %>
+        <div class="category category-tag">
+          <%= category.category_name %>
+        </div>
+      <% end %>
+    </div>
+  <!--</div>-->
 
-    <div class="row">
-      <div class="col-lg-12 tool">
-        <p>掃除道具</p>
-        <% @post.cleaning_tools.each do |cleaning_tool| %>
-          ・<%= cleaning_tool.cleaning_tool_name %><br>
-          </div>
-        <% end %>
-      </div>
-      <div class="col-lg-12">
-        <p>掃除方法</p>
-        <% @post.cleaning_recipes.each do |cleaning_recipe| %>
-          <div class="row recipe">
-            <div class="col-lg-4">
-              <%= image_tag cleaning_recipe.get_recipe_image(100,100) %>
-            </div>
-            <div class="col-lg-8">
-              <%= cleaning_recipe.cleaning_recipe %>
-            </div>
-          </div>
-        <% end %>
-      </div>
+  <div class="row">
+    <div class="sub-title">掃除道具</div>
+    <div class="tool">
+      <% @post.cleaning_tools.each do |cleaning_tool| %>
+        ・<%= cleaning_tool.cleaning_tool_name %><br>
+      <% end %>
     </div>
-    <div class="row">
-      <div class="col-lg-12 d-flex justify-content-center">
-        コメントする
-      </div>
-      <div class="col-lg-12 comment-box d-flex justify-content-center">
-        <%= form_with model: [@post, @post_comment] do |f| %>
-          <%= render 'layouts/error_messages', model: f.object %>
-            <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに記述" %>
-          <span class="action d-flex justify-content-center align-items-center">
-            <%= f.submit "送信", class: "btn btn-success" %>
-          </span>
-        <% end %>
-      </div>
+    <div class="sub-title">掃除方法</div>
+    <div class="col-lg-12">
+      <% @post.cleaning_recipes.each do |cleaning_recipe| %>
+        <div class="row recipe">
+          <div class="col-lg-4">
+            <%= image_tag cleaning_recipe.get_recipe_image(100,100) %>
+          </div>
+          <div class="col-lg-8">
+            <%= cleaning_recipe.cleaning_recipe %>
+          </div>
+        </div>
+      <% end %>
     </div>
+  </div>
+    
+  <div class="row">
+    <div class="sub-title">
+      コメントする
+    </div>
+    <div class="col-lg-12 comment-box d-flex justify-content-center">
+      <%= form_with model: [@post, @post_comment] do |f| %>
+        <%= render 'layouts/error_messages', model: f.object %>
+          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに記述" %>
+        <span class="action d-flex justify-content-center align-items-center">
+          <%= f.submit "送信", class: "btn btn-success" %>
+        </span>
+      <% end %>
+    </div>
+  </div>
+    
+  <div class="row">
     <div class="row comment-box justify-content-center">
       <!--<div class="col-lg-12 d-flex justify-content-center align-items-center">-->
         コメント件数：<%= @post.comments.count %>件
@@ -114,5 +119,6 @@
           </div>
         </div>
       <% end %>
-    </div>  
+    </div>
+  </div>
 </div>

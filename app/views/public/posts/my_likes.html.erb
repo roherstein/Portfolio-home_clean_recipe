@@ -15,21 +15,21 @@
       </thead>
       <tbody>
         <% @like_posts.each do |post| %>
-          <tr class="my-likes">
+          <tr class="posted">
             <td class="title"><%= post.title %></td>
             <td class="like">♡<%= post.likes.count %></td>
             <td class="category">
               <% post.categories.each do |category| %>
-                <%= category.category_name %>
+                <%= category.category_name %><br>
               <% end %>
             </td>
             <td class="date"><%= post.updated_at.strftime('%Y/%m/%d') %></td>
-            <td class="edit-btn"><%= link_to "詳細", post_path(post.id), class: "btn btn-success"  %></td>
+            <td class="show-btn"><%= link_to "詳細", post_path(post.id), class: "btn btn-success"  %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
-    <%#= paginate @like_posts %>
+    <%= paginate @page %>
     </div>
 </div>
 

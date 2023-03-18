@@ -31,7 +31,7 @@
               <% end %>
             </td>
             <td class="date"><%= post.updated_at.strftime('%Y/%m/%d') %></td>
-            <td class="edit-btn"><%= link_to "詳細", post_path(post.id), class: "btn btn-success"  %></td>
+            <td class="show-btn"><%= link_to "詳細", post_path(post.id), class: "btn btn-success"  %></td>
           </tr>
         <% end %>
       </tbody>

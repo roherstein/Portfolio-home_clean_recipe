@@ -55,6 +55,17 @@ header{
   vertical-align: middle;
 }
 
+// 全ページ共通CSS
+
+h4{
+  margin: 2% 0%;
+  color: #4682b4;
+}
+
+.btn{
+  margin: 3% 0%;
+  text-align: center;
+}
 
 // ログイン画面CSS
 .login-field{
@@ -66,11 +77,6 @@ header{
   margin: 10px 0px 10px;
 }
 
-// 全ページ共通CSS
-
-h4{
-  margin: 2% 0%;
-}
 
 // トップページCSS
 
@@ -82,7 +88,7 @@ h4{
 .post-img{
   position: relative;
   margin-bottom: 20px;
-  width: 70%;
+  width: 50%;
   
   img {
     width: 100%;
@@ -105,10 +111,6 @@ h4{
   }
 }
 
-
-
-
-
 .category-index { 
   padding: 0.1em 0.3em;
   margin: 1em;
@@ -121,14 +123,7 @@ h4{
   border-radius: 10px;
 }
 
-.category-area{
-  margin: 10px;
-  
-  .category { 
-  padding: 0.1em 0.3em;
-  margin: 0.2em;
-  }
-}
+
 
 // 詳細ページCSS
 
@@ -151,25 +146,45 @@ h4{
 }
 
 .intro{
-  border: solid 0.5px #afeeee;
+  border: solid 1px #afeeee;
   border-radius: 5%;
   margin: 20px;
   padding: 1%;
+  width: 95%;
+}
+
+.show-date{
+  margin-bottom: 2%;
+}
+
+.category-area{
+  margin-bottom: 2%;
+  .category { 
+  padding: 0.1em 0.3em;
+  margin: 0.2em;
+  }
+}
+
+.sub-title{
+  margin: 3% 0% 1%;
+  font-size: 1.3rem;
+  color: #4682b4;
 }
 
 .tool{
-  border-bottom: solid 0.5px #afeeee;
+  border-bottom: solid 1px #afeeee;
   margin: 20px;
+  width: 100%;
 }
 
 .recipe{
-  border-bottom: solid 0.5px #afeeee;
+  border-bottom: solid 1px #afeeee;
   margin: 10px;
   padding: 10px;
 }
 
 .comment-box{
-  margin: 1%;
+  margin: 1% 0%;
   
   form{
     width: 80%;
@@ -177,10 +192,10 @@ h4{
   textarea{
     width: 100%;
   }
-  comment-list{
+  .comment-list{
     margin: 1%;
-    padding: 2%;
-    border-bottom: solid 0.5px #afeeee;
+    padding: 1%;
+    border-bottom: solid 1px #afeeee;
   }
 }
 
@@ -203,7 +218,7 @@ h4{
   }
 }
 
-// 投稿済み投稿一覧CSS
+// 投稿済み投稿一覧、いいね一覧、コメント一覧CSS
 .posted{
   
   .title{
@@ -213,33 +228,17 @@ h4{
     width: 10%;
   }
   .category{
-    width: 20%;
+    width: 15%;
   }
   .date{
     width: 10%;
   }
-  .edit-btn{
-    width: 10%;
+  .show-btn{
+    width: 15%;
     text-align: center;
   }
 }
 
-// いいね一覧、コメント一覧CSS
-.posted{
-  
-  .title{
-    width: 60%;
-  }
-  .like{
-    width: 10%;
-  }
-  .category{
-    width: 20%;
-  }
-  .date{
-    width: 10%;
-  }
-}
 
 // マイページCSS
 
@@ -292,7 +291,7 @@ h4{
 }
 
 .user-info{
-  margin-bottom: 1%;
+  margin-bottom: 2%;
   padding: 1% 0%;
   
   .form-expand{
@@ -301,6 +300,10 @@ h4{
   .text-area{
     width: 100%;
     height: 100px;
+  }
+  a{
+    padding-top: 2%;
+    padding-left: 1%;
   }
 }
 
