@@ -12,103 +12,118 @@
 
   <body class="d-flex flex-column vh-100">
     <header class="shadow-sm">
-      <nav class="navbar navbar-expand-lg navbar-light">
+      <nav class="navbar navbar-expand-lg navbar-light d-block">
         <div class="container">
-          <div class="row" style="width: 100%">
+          <div class="row w-100">
+            <div class="col-12 col-lg-3">
               <% if admin_signed_in? %>
-                <div class="col-3 d-none d-md-block ">
-                  <%= link_to admin_posts_path do %>
-                    <%= image_tag 'HRC_Logo.png' %>
+                <div class="text-center">
+                  <%= link_to admin_posts_path, class: 'navbar-brand' do %>
+                    <%= image_tag 'HRC_Logo.png', class: 'img-fluid' %>
                   <% end %>
                 </div>
               <% else %>
-              <div class="col-3 d-none d-md-block ">
-                <%= link_to root_path do %>
-                    <%= image_tag 'HRC_Logo.png' %>
-                <% end %>
+                <div class="text-center">
+                  <%= link_to root_path, class: 'navbar-brand' do %>
+                      <%= image_tag 'HRC_Logo.png', class: 'img-fluid' %>
+                  <% end %>
                 </div>
               <% end %>
-                <div class="col-md-3 col-sm-12 col-3" style="align-self: center;">
-                  <%= render 'public/searches/search' %>
-                  <%= link_to 'カテゴリから選ぶ >>', categories_path %>
-                </div>
-              <div class="col-sm-9 col-9 justyfy-content-end">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                              aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-              </div>
- 
-              
-              <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: end;">
-                <div class="col-6">
-                  <ul class="navbar-nav ml-auto" style="display: unset !important;">
-                    
-                    <div class="row" >
+            </div>
+            <div class="order-1 order-lg-1 col-10 col-lg-4 align-self-center">
+              <%= render 'public/searches/search' %>
+              <%= link_to 'カテゴリから選ぶ >>', categories_path %>
+            </div>
+            <div class="order-3 order-lg-2 col-12 col-lg-5 align-self-center">
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav w-100">
+                  <div class="row w-100">
                     <% if admin_signed_in? then %>
-                      <li class="col-md-3 nav-list-item align-bottom">
-                        <%= link_to admin_users_path do %>
-                          <%= image_tag 'mypage-icon.png', size: "30x30" %>
-                          <div>ユーザ一覧</div>
-                        <% end %>
-                      </li>
-                      <li class="col-md-3 nav-list-item align-bottom">
-                        <%= link_to admin_comments_path do %>
-                          <%= image_tag 'mypage-icon.png', size: "30x30" %>
-                          <div>コメント一覧</div>
-                        <% end %>
-                      </li>
-                      <li class="col-md-3 nav-list-item align-bottom">
-                        <%= link_to destroy_admin_session_path, method: :delete do %>
-                          <%= image_tag 'mypage-icon.png', size: "30x30" %>
-                          <div>ログアウト</div>
-                        <% end %>
-                      </li>
-                      
+                      <div class="col-lg-4 line">
+                        <li class="nav-list-item d-flex justify-content-end">
+                          <%= link_to admin_users_path do %>
+                            <%= image_tag 'user-list-icon.png', size: "30x30" %>
+                            <div>ユーザ一覧</div>
+                          <% end %>
+                        </li>
+                      </div>
+                      <div class="col-lg-4 line">
+                        <li class="nav-list-item d-flex justify-content-end">
+                          <%= link_to admin_comments_path do %>
+                            <%= image_tag 'comment-list-icon.png', size: "30x30" %>
+                            <div>コメント一覧</div>
+                          <% end %>
+                        </li>
+                      </div>
+                      <div class="col-lg-4 line">
+                        <li class="nav-list-item d-flex justify-content-end">
+                          <%= link_to destroy_admin_session_path, method: :delete do %>
+                            <%= image_tag 'logout-icon.png', size: "30x30" %>
+                            <div>ログアウト</div>
+                          <% end %>
+                        </li>
+                      </div>
                     <% elsif user_signed_in? then %>
-                      <li class="col-md-3 nav-list-item align-bottom">
-                        <%= link_to users_mypage_path do %>
-                          <%= image_tag 'mypage-icon.png', size: "30x30" %>
-                          <div>マイページ</div>
-                        <% end %>
-                      </li>
-                      <li class="col-md-3 nav-list-item">
-                        <%= link_to new_post_path do %>
-                          <%= image_tag 'post-icon.png', size: "30x30" %>
-                          <div>投稿する</div>
-                        <% end %>
-                      </li>
-                      <li class="col-md-3 nav-list-item">
-                        <%= link_to destroy_user_session_path, method: :delete do %>
-                          <%= image_tag 'logout-icon.png', size: "30x30" %>
-                          <div>ログアウト</div>
-                        <% end %>
-                      </li>
+                      <div class="col-lg-4 line">
+                        <li class="nav-list-item d-flex justify-content-center">
+                          <%= link_to users_mypage_path do %>
+                            <%= image_tag 'mypage-icon.png', size: "30x30" %>
+                            <div>マイページ</div>
+                          <% end %>
+                        </li>
+                      </div>
+                      <div class="col-lg-4 line">
+                        <li class="nav-list-item d-flex justify-content-center">
+                          <%= link_to new_post_path do %>
+                            <%= image_tag 'post-icon.png', size: "30x30" %>
+                            <div>投稿する</div>
+                          <% end %>
+                        </li>
+                      </div>
+                      <div class="col-lg-4 line">
+                        <li class="nav-list-item d-flex justify-content-center">
+                          <%= link_to destroy_user_session_path, method: :delete do %>
+                            <%= image_tag 'logout-icon.png', size: "30x30" %>
+                            <div>ログアウト</div>
+                          <% end %>
+                        </li>
+                      </div>
                     <% else %>
-                      <li class="col-md-4 nav-list-item">
-                        <%= link_to public_guest_sign_in_path, method: :post, class: "login" do %>
-                          <%= image_tag 'guest-icon.png', size: "30x30" %>
-                          <div>ゲストログイン</div>
-                        <% end %>
-                      </li>
-                      <li class="col-md-3 nav-list-item">
-                        <%= link_to new_user_session_path  do %>
-                          <%= image_tag 'login-icon.png', size: "30x30" %>
-                          <div>ログイン</div>
-                        <% end %>
-                      </li>
-                      <li class="col-md-3 nav-list-item">
-                        <%= link_to new_user_registration_path  do %>
-                          <%= image_tag 'registration-icon.png', size: "30x30" %>
-                          <div>ユーザ登録</div>
-                        <% end %>
-                      </li>
-                      
+                      <div class="col-lg-4 line">
+                        <li class="nav-list-item d-flex justify-content-end">
+                          <%= link_to public_guest_sign_in_path, method: :post, class: "login" do %>
+                            <%= image_tag 'guest-icon.png', size: "30x30" %>
+                            <div>ゲストログイン</div>
+                          <% end %>
+                        </li>
+                      </div>
+                      <div class="col-lg-4 line">
+                        <li class="nav-list-item d-flex justify-content-end">
+                          <%= link_to new_user_session_path  do %>
+                            <%= image_tag 'login-icon.png', size: "30x30" %>
+                            <div>ログイン</div>
+                          <% end %>
+                        </li>
+                      </div>
+                      <div class="col-lg-4 line">
+                        <li class="nav-list-item d-flex justify-content-end">
+                          <%= link_to new_user_registration_path  do %>
+                            <%= image_tag 'registration-icon.png', size: "30x30" %>
+                            <div>ユーザ登録</div>
+                          <% end %>
+                        </li>
+                      </div>
                     <% end %>
-                    </div>
-                  </ul>
-                </div>
+                  </div>
+                </ul>
               </div>
+            </div>
+            <div class="order-2 order-lg-3 col-2 col-lg-2">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
           </div>
         </div>
       </nav>

@@ -1,41 +1,49 @@
+
+
 <div class="container">
-  <h1>管理者 ユーザ一覧</h1>
-    <div class="row">
-      <div class="col-2">
-        ユーザid
-      </div>
-      <div class="col-2">
-        ユーザ名
-      </div>
-      <div class="col-4">
-        メールアドレス
-      </div>
-      <div class="col-4">
-        ユーザステータス
-      </div>
+  <h4>
+    管理者 ユーザ一覧
+    <span class="num-items">全<%= @users.count %>件</span>
+  </h4>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ユーザID</th>
+        <th scope="col">ユーザ名</th>
+        <th scope="col">メールアドレス</th>
+        <th scope="col">ユーザステータス</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
       <% @users.each do |user| %>
-        <div class="col-2">
-          <%= link_to user.id, admin_user_path(user.id) %>
-          <%= %>
-        </div>
-        <div class="col-2">
-          <% if user.user_name.present? %>
-            <%= user.user_name %>
-          <% else %>
-            未登録
-          <% end %>
-        </div>
-        <div class="col-4">
-          <%= user.email %>
-        </div>
-        <div class="col-4">
-          <% if user.is_deleted %>
-            退会
-          <% else %>
-            有効
-          <% end %>
-        </div>
+        <tr class="users">
+          <td class="user-id text-center">
+            <%= user.id %>
+          </td>
+          <td class="user-name">
+            <% if user.user_name.present? %>
+              <%= user.user_name %>
+            <% else %>
+              未登録
+            <% end %>
+          </td>
+          <td class="email">
+            <%= user.email %>
+          </td>
+          <td class="user-status text-center">
+            <% if user.is_deleted %>
+              退会
+            <% else %>
+              有効
+            <% end %>
+          </td>
+          <td class="show-btn text-center">
+            <%= link_to "詳細", admin_user_path(user.id), class: "btn btn-success"  %>
+          </td>
+        </tr>
       <% end %>
-      <%= paginate @users %>
-    </div>
+    </tbody>
+  </table>
+  <%= paginate @users %>
 </div>

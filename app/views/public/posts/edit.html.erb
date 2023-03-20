@@ -1,72 +1,105 @@
  <%= flash[:notice] %>
 <div class="container">
   <h4>投稿編集</h4>
-  <div class="row justify-content-center">
+  <div class="row">
     <%= form_with model: @post, url: post_path(@post), method: :patch do |f| %>
       <%= render 'layouts/error_messages', model: f.object %>
-      <div class="col-12">
-        
-        <span>タイトル</span>
-        <%= f.text_field :title %>
+      <div class="row">
+        <div class="col-lg-2">
+          <%= f.label :title, "タイトル", class: "sub-title" %>
+        </div>
+        <div class="col-10 post-form align-self-center">
+          <%= f.text_field :title, class: "text-field" %>
+        </div>
       </div>
-      <div class="col-12">
-        <span>トップ画像</span>
-        <%= f.file_field :post_image,accept: "image/*" %>
+      <div class="row">
+        <div class="col-lg-2">
+          <%= f.label :post_image, "トップ画像", class: "sub-title" %>
+        </div>
+        <div class="col-lg-10 align-self-center">
+          <%= f.file_field :post_image, accept: "image/*" %>
+        </div>
       </div>
-      <div class="col-12">
-        <span>説明</span>
-        <%= f.text_field :introduction %>
+      <div class="row">
+        <div class="col-lg-2">
+          <%= f.label :introduction, "説明", class: "sub-title" %>
+        </div>
+        <div class="col-lg-10 post-form align-self-center">
+          <%= f.text_area :introduction %>
+        </div>
       </div>
-      <div class="col-12">
-        <span>カテゴリ</span>
-        <div class="field">
+      <div class="row">
+        <div class="col-2">
+          <%= f.label :category_name, "カテゴリ", class: "sub-title" %>
+        </div>  
+        <div class="col-lg-10 post-form field">
           <%= collection_check_boxes(:post, :category_ids, Category.all, :id, :category_name ) do |t|  %>
             <% t.label { t.check_box + t.text } %>
           <% end %> 
         </div>
       </div>
-      <div class="col-12">
-        <span>掃除道具</span>
-        <%= link_to_add_association "フォーム追加", f, :cleaning_tools, class: 'add_fields',
-          data: {
-            association_insertion_node: '#detail-association-insertion-point',
-            association_insertion_method: 'after'
-            }
-        %>
-        
-        <div id="detail-association-insertion-point">
-          <%= f.fields_for :cleaning_tools do |form| %>
-            <%= render "cleaning_tool_fields", f: form %>
-          <% end %>
+      
+      <div class="row">
+        <div class="col-lg-2">
+          <p><%= f.label :cleaning_tools, "掃除用具", class: "sub-title" %></p>
+          <%= link_to_add_association "フォーム追加", f, :cleaning_tools, 
+            class: 'add_fields btn btn-info',
+            data: {
+              association_insertion_node: '#detail-association-insertion-point',
+              association_insertion_method: 'after'
+              }
+          %>
+        </div>
+        <div class="col-lg-10 post-form">
+          <div id="detail-association-insertion-point">
+            <%= f.fields_for :cleaning_tools do |form| %>
+              <%= render "cleaning_tool_fields", f: form %>
+            <% end %>
+          </div>
         </div>
       </div>
       
-      <div class="col-12">
-        <span>掃除方法</span>
-        <div class="add-botton-box">
-          <%= link_to_add_association "フォーム追加", f, :cleaning_recipes, class: 'add_fields', id: 'add-btn',
-            data: {
-              association_insertion_node: '#detail-association-insertion-point2',
-              association_insertion_method: 'append'
-              } 
-          %>
+      <div class="row">
+        <div class="col-lg-2">
+          <p><%= f.label :cleaning_recipes, "掃除方法", class: "sub-title" %></p>
+          <div class="add-botton-box">
+            <%= link_to_add_association "フォーム追加", f, :cleaning_recipes, class: 'add_fields btn btn-info', id: 'add-btn',
+              data: {
+                association_insertion_node: '#detail-association-insertion-point2',
+                association_insertion_method: 'append'
+                } 
+            %>
+          </div>
         </div>
-        <div id="detail-association-insertion-point2">
-          <%= f.fields_for :cleaning_recipes do |form| %>
-            <%= render "cleaning_recipe_fields", f: form %>
-          <% end %>
+        <div class="col-lg-10 post-form">
+          <div id="detail-association-insertion-point2">
+            <%= f.fields_for :cleaning_recipes do |form| %>
+              <%= render "cleaning_recipe_fields", f: form %>
+            <% end %>
+          </div>
         </div>
       </div>
-      <div class="col-12">
+      
+      <div class="row justify-content-end">
         <% if @post.is_publish == false %>
-          <%= f.submit "下書きのまま保存", :name => 'update_draft', class: "btn btn-primary" %>
-          <%= f.submit "下書きを投稿", :name => 'change_publish', class: "btn btn-success" %>
-          <%= link_to "削除", post_path(@post), method: :delete, 
-            data: {confirm: "下書きを削除します。よろしいですか？"}, class: "btn btn-danger"%>
+          <div class="col-lg-2">
+            <%= f.submit "下書きのまま保存", :name => 'update_draft', class: "btn btn-primary" %>
+          </div>
+          <div class="col-lg-2">
+            <%= f.submit "下書きを投稿", :name => 'change_publish', class: "btn btn-success" %>
+          </div>
+          <div class="col-lg-2">
+            <%= link_to "削除", post_path(@post), method: :delete, 
+              data: {confirm: "下書きを削除します。よろしいですか？"}, class: "btn btn-danger"%>
+          </div>
         <% else @post.is_publish == true %>
+        <div class="col-lg-2">
           <%= f.submit "投稿内容を更新", :name => 'update_post', class: "btn btn-primary" %>
-          <%= link_to "削除", post_path(@post), method: :delete, 
+        </div>
+        <div class="col-lg-2">
+          <%= link_to "投稿を削除", post_path(@post), method: :delete, 
             data: {confirm: "投稿を削除します。よろしいですか？"}, class: "btn btn-danger"%>
+        </div>
         <% end %>
       </div>
     <% end %>

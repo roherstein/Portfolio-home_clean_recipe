@@ -1,61 +1,72 @@
 <%= flash[:notice] %>
 <div class="container">
-    <h1>ユーザ情報詳細</h1>
+    <h4>ユーザ情報詳細</h4>
     <div class="row">
       <div class="col-lg-4">
         <div class="row user-img">
           <%= image_tag @user.get_profile_image(200,200) %>
         </div>
         <div class="row">
-          <%= link_to "ユーザ情報編集", edit_user_path(current_user), class: "btn btn-success" %>
+            <% if user_signed_in? && @user.id == current_user.id %>
+              <%= link_to "ユーザ情報編集", edit_user_path(current_user), class: "btn btn-success" %>
+            <% end %>
         </div>
       </div>
       
       <div class="col-lg-8">
-        <div class="row profile">
-          <div class="col-lg-4">
-            ニックネーム
-          </div>
-          <div class="col-lg-8">
-              <%= @user.user_name %>
-          </div>
-        </div>
-        <% if @user.id = current_user.id %>
+        <div class="profile-box">
           <div class="row profile">
-            <div class="col-4">
-              メールアドレス
+            <div class="col-lg-4">
+              ニックネーム
             </div>
-            <div class="col-8">
-              <%= @user.email %>
+            <div class="col-lg-8">
+                <%= @user.user_name %>
             </div>
           </div>
-        <% else %>
+          <% if user_signed_in? %>
+          <% if @user.id = current_user.id %>
+            <div class="row profile">
+              <div class="col-lg-4">
+                メールアドレス
+              </div>
+              <div class="col-lg-8">
+                <%= @user.email %>
+              </div>
+            </div>
+          <% end %>
+          <% end %>
+          <div class="row profile">
+            <div class="col-lg-4">
+              プロフィール
+            </div>
+            <div class="col-lg-8">
+              <%= @user.self_introduction %>
+            </div>
+          </div>
+        </div>
         
-        <% end %>
-        <div class="row profile">
-          <div class="col-lg-4">
-            プロフィール
-          </div>
-          <div class="col-lg-8">
-            <%= @user.self_introduction %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            これまでに投稿したレシピ
-          </div>
-          <div class="col-lg-6">
-             <%= link_to "投稿一覧へ", post_list_user_path(@user.id) %>
-          </div>
-        </div>
-        <% @posts.each do |post| %>
-            <div class="col-lg-12 profile-list">
-              <%= link_to post.title, post_path(post.id)  %>
-              <%= post.updated_at.strftime("%Y/%m/%d")  %>
+        <div class="profile-box">
+          <div class="row posted-list">
+            <div class="col-lg-6">
+              これまでに投稿したお掃除レシピ
             </div>
-        <% end %>
-        <div class="row justify-content-end w-100">
-          ※更新順で10件まで表示
+            <div class="col-lg-6">
+               <%= link_to "投稿一覧へ", post_list_user_path(@user.id) %>
+            </div>
+          </div>
+          <% if @posts.present? %>
+            <% @posts.each do |post| %>
+              <div class="col-lg-12 profile-list">
+                <%= link_to post.title, post_path(post.id)  %>
+                <%= post.updated_at.strftime("%Y/%m/%d")  %>
+              </div>
+            <% end %>
+          <% else %>
+            現在投稿したレシピはありません
+          <% end %>
+          <div class="row justify-content-end w-100">
+            ※更新順で10件まで表示
+          </div>
         </div>
       </div>
     </div>

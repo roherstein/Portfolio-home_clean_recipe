@@ -3,6 +3,8 @@
     コメントした投稿一覧
     <span class="num-items">全<%= @comment_posts.count %>件</span>
   </h4>
+  
+  <% if @comment_posts.present? %>
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
@@ -29,7 +31,9 @@
         <% end %>
       </tbody>
     </table>
-    <%= paginate @page %>
-    </div>
+  <% else %>
+    コメントした投稿はありません。    
+  <% end %>
+  <%= paginate @page %>
 </div>
 

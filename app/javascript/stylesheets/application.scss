@@ -14,7 +14,6 @@ header{
   // // height:120px;　反映なし
   // padding:15px 0;
   margin: 1em auto 0em auto;
-  // height:10em;
   // display: flex;
   text-decoration: none;
   margin-bottom: 30px;
@@ -39,11 +38,13 @@ header{
 }
 
 .nav-list-item {
-  // padding: 0 30px;
-  // margin-top:60px;
-  border-left: solid 1px #00ced1;
   text-align: center;
   vertical-align: bottom;
+  list-style-type: none;
+}
+
+.line{
+  border-left: solid 1px #00ced1;
 }
 
 .i{
@@ -54,6 +55,8 @@ header{
 .image{
   vertical-align: middle;
 }
+
+
 
 // 全ページ共通CSS
 
@@ -78,6 +81,7 @@ h4{
 }
 
 
+
 // トップページCSS
 
 .post-box{
@@ -85,13 +89,14 @@ h4{
   margin-bottom: 20px;
 }
 
-.post-img{
+.index-post-img{
   position: relative;
   margin-bottom: 20px;
-  width: 50%;
+  width: 60%;
   
   img {
     width: 100%;
+    border-radius: 20px;
   }
   .like{ 
   width: 4rem;
@@ -127,6 +132,17 @@ h4{
 
 // 詳細ページCSS
 
+.show-post-img{
+  position: relative;
+  margin-bottom: 20px;
+  width: 40%;
+  
+  img {
+    width: 100%;
+    border-radius: 20px;
+  }
+}
+
 #show-like{
   padding: 1% 2%;
   background-color:#ffffff;
@@ -139,10 +155,8 @@ h4{
   position: absolute;
   top: 5%;
   right: 5%;
+  color:#ff69b4;
   
-  a {
-    color:#ff69b4;
-  }
 }
 
 .intro{
@@ -166,8 +180,8 @@ h4{
 }
 
 .sub-title{
-  margin: 3% 0% 1%;
-  font-size: 1.3rem;
+  margin: 2% 0%;
+  font-size: 1.2rem;
   color: #4682b4;
 }
 
@@ -260,7 +274,7 @@ h4{
   margin: 2%;
 }
 
-.title{
+.mypage-title{
   margin: 2% 0%;
   border-bottom: solid 2px #afeeee;
 }
@@ -280,6 +294,11 @@ h4{
   }
 }
 
+.profile-box{
+  margin-bottom: 5%;
+  padding: 2%;
+  border: solid 2px #afeeee;
+}
 .profile{
   margin: 1% 0%;
   padding: 1% 0%;
@@ -288,6 +307,11 @@ h4{
 .profile-list{
   margin: 1%;
   padding: 1%;
+}
+
+.posted-list{
+  padding: 1%;
+  border-bottom: solid 2px #afeeee;
 }
 
 .user-info{
@@ -314,6 +338,116 @@ h4{
   // p{
   //   text-align: center;
   // }
+}
+
+// 新規投稿画面、投稿編集画面CSS
+.post-form{
+  margin-bottom: 1%;
+  
+  .text-field{
+      width: 60%;
+    }
+  .file-field{
+    margin-bottom: 2%;
+  }
+  .form-box{
+    border-bottom: solid 1px #00ced1;
+    margin: 1%;
+    padding: 2%;
+  }
+  label{
+    display: inline-block;
+    // width: 20%;
+    margin: 0.5em;
+  }
+  .title{
+    width: 60%;
+  }
+  textarea{
+    width: 60%;
+    height: 5em;
+  }
+  .tool-form{
+    margin-bottom: 1%;
+    
+    .text-field{
+      width: 100%;
+    }
+  }
+  .recipe-form{
+    margin-bottom: 1%;
+    
+    textarea{
+      width: 100%;
+    }
+  }
+}
+
+// 管理者ユーザ一覧画面
+.users{
+  
+  .user-id{
+    width: 10%;
+  }
+  .user-name{
+    width: 30%;
+  }
+  .email{
+    width: 30%;
+  }
+  .user-status{
+    width: 15%;
+  }
+  .show-btn{
+    width: 15%;
+  }
+}
+
+.user-show{
+  
+  .table {
+  border-collapse: collapse;
+  border-spacing: 0px; 
+  }
+  .table tr td:nth-child(1) {
+  width: 30%;
+  }
+  .table tr td:nth-child(2) {
+    width: 70%;
+  }
+}
+
+
+.comment-index{
+  .comment-id{
+    width: 10%;
+  }
+  .comment-user{
+    width: 20%;
+  }
+  .comment{
+    width: 45%;
+  }
+  .date{
+    width: 15%;
+  }
+  .show-btn{
+    width: 10%;
+  }
+}
+
+.comment-show{
+  
+  .table {
+  border-collapse: collapse;
+  border-spacing: 0px; 
+  }
+  .table tr td:nth-child(1) {
+  width: 30%;
+  }
+  .table tr td:nth-child(2) {
+    width: 70%;
+  }
 }
 
 // フッターCSS

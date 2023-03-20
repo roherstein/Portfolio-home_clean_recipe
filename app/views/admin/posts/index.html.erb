@@ -1,30 +1,45 @@
 <div class="container">
-  <h1>管理者 投稿一覧トップページ</h1>
-    <div class="row">
-      <div class="col-2">
-      投稿ID
-      </div>
-      <div class="col-5">
-      投稿タイトル
-      </div>
-      <div class="col-5">
-      投稿ユーザ名
-      </div>
-      <% @posts.each do |post| %>
-        <div class="col-2">
-          <%= link_to post.id, admin_post_path(post.id) %>
-        </div>
-        <div class="col-5">
-          <%= post.title %>
-        </div>
-        <div class="col-5">
-          <% if post.user.user_name.present? %>
-            <%= post.user.user_name %>
-          <% else %>
-            未登録
-          <% end %>
-        </div>
-      <% end %>
-      <%= paginate @posts %>
+  <h4>
+    管理者 投稿一覧トップページ
+    <span class="num-items">全<%= @posts.count %>件</span>
+  </h4>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th scope="col">投稿ID</th>
+          <th scope="col">投稿タイトル</th>
+          <th scope="col">投稿ユーザ名</th>
+          <th scope="col">更新日</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr class="posted">
+            <td class="post-id text-center">
+              <%= post.id %>
+            </td>
+            <td class="title">
+              <%= post.title %>
+            </td>
+            <td class="category">
+              <% if post.user.user_name.present? %>
+                <%= post.user.user_name %>
+              <% else %>
+                未登録
+              <% end %>
+            </td>
+            <td class="date">
+              <%= post.updated_at.strftime('%Y/%m/%d') %>
+            </td>
+            <td class="show-btn">
+              <%= link_to "詳細", admin_post_path(post.id), class: "btn btn-success"  %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+    <%= paginate @posts %>
     </div>
 </div>

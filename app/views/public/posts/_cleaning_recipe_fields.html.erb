@@ -1,15 +1,15 @@
 <div class="nested-fields">
-  <table>
-    <tr>
-      <td class="td-fixed-image">
-        <%= f.file_field :recipe_image,accept: "image/*" %>
-      </td>
-      <td class="td-fixed-cleaning_recipe">
-        <%= f.text_area :cleaning_recipe, placeholder: "説明文" %>
-      </td>
-      <td class="td-fixed-delete">
-        <%= link_to_remove_association "削除", f %>
-      </td>
-    </tr>
-  </table>
+  <div class="form-box">
+    <div class="row file-field">
+      <%= f.file_field :recipe_image,accept: "image/*" %>
+    </div>
+    <div class="row recipe-form">
+      <div class="col-lg-10">
+        <%= f.text_area :cleaning_recipe, class: "text-area" %>
+      </div>
+      <div class="col-lg-2 align-self-center">
+        <%= link_to_remove_association "削除", f, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
 </div>

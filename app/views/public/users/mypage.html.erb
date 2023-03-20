@@ -11,7 +11,11 @@
           プロフィール
         </div>
         <div class="col-lg-12 self-intro">
-          <%= @user.self_introduction %>
+          <% if @user.self_introduction.present? %>
+            <%= @user.self_introduction %>
+          <% else %>
+            登録がありません。
+          <% end %>
         </div>
         <div class="col-lg-12">
           <%= link_to "ユーザ情報編集", edit_user_path(current_user) %>
@@ -27,12 +31,14 @@
     
     <div class="col-lg-8">
       <div class="mypage-box">
-        <div class="row title">
+        <div class="row mypage-title">
           <div class="col-lg-6">
             作成中のお掃除レシピ　全<%= @draft_posts.count %>件
           </div>
           <div class="col-lg-6">
-            <%= link_to "作成中投稿一覧へ", posts_draft_path(@draft_posts) %>
+            <% if @draft_posts.present? %>
+              <%= link_to "作成中投稿一覧へ", posts_draft_path(@draft_posts) %>
+            <% end %>
           </div>
         </div>
         <% if @draft_posts.present? %>
@@ -53,7 +59,7 @@
         </div>
       </div>
       <div class="mypage-box">
-        <div class="row title">
+        <div class="row mypage-title">
           <div class="col-lg-6">
             投稿したお掃除レシピ　全<%= @posts.count %>件
           </div>
