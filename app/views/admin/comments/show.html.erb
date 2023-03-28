@@ -1,5 +1,7 @@
-<%= flash[:notice] %>
 <div class="container">
+  <div class='flash-message'>
+    <%= flash[:notice] %>
+  </div>
   <h4>管理者 コメント詳細</h4>
   <div class="row comment-show justify-content-center">
     <table class="table table-bordered table-striped w-75">
@@ -28,7 +30,7 @@
     </table>
   </div>
   <div class="row justify-content-center">
-    <%= link_to "削除する", post_comment_path(@comment), class: "btn btn-danger",
+    <%= link_to "削除する", admin_comment_path(@comment), method: :delete, class: "btn btn-danger",
     data: {confirm: "コメントを削除します。よろしいですか？"} %>
   </div>
 </div>

@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  
+  before_action :authenticate_user!, except: [:show]
   
   def mypage
     @user = User.find(current_user.id)
@@ -32,12 +32,18 @@ class Public::UsersController < ApplicationController
   end
   
   def withdrawal
-    
+    #byebug
+    @user = current_user
+    #@user = User.find(current_user.id)
+    @user.update(is_deleted: true)
+    reset_session
+    flash[:notice] = '退会処理を実行いたしました'
+    redirect_to root_path
   end
   
   def post_list
     @user = User.find(params[:id])
-    posts = Post.where(user_id:params[:id]).where(is_publish: true).pluck(:id)
+    posts = Post.where(user_id: params[:id]).where(is_publish: true).pluck(:id)
     @posts = Kaminari.paginate_array(Post.find(posts)).page(params[:page])
   end
   

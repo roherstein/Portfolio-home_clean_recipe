@@ -1,6 +1,8 @@
- <%= flash[:notice] %>
- <div class="container">
-  <h4><%= @user.user_name %>のマイページ</h4>
+<div class="container">
+  <div class='flash-message'>
+    <%= flash[:notice] %>
+  </div>
+  <h4>マイページ</h4>
   <div class="row">
     <div class="col-lg-4">
       <%= link_to user_path(current_user) do %>
@@ -8,13 +10,23 @@
       <% end %>
       <div class="row profile-box">
         <div class="col-lg-12">
+          ニックネーム
+        </div>
+        <div class="col-lg-12 self-intro">
+          <% if @user.user_name.present? %>
+            <%= @user.user_name %>
+          <% else %>
+            現在登録がありません。
+          <% end %>
+        </div>
+        <div class="col-lg-12">
           プロフィール
         </div>
         <div class="col-lg-12 self-intro">
           <% if @user.self_introduction.present? %>
             <%= @user.self_introduction %>
           <% else %>
-            登録がありません。
+            現在登録がありません。
           <% end %>
         </div>
         <div class="col-lg-12">
@@ -64,8 +76,11 @@
             投稿したお掃除レシピ　全<%= @posts.count %>件
           </div>
           <div class="col-lg-6">
-            <%= link_to "投稿一覧へ", post_list_user_path(current_user.id) %>
+            <% if @posts.present? %>
+              <%= link_to "投稿一覧へ", post_list_user_path(current_user.id) %>
+            <% end %>
           </div>
+          
         </div>
         <% if @posts.present? %>
           <% @posts.each do |post| %>
@@ -76,7 +91,9 @@
             </div>
           <% end %>
         <% else %>
-          現在投稿したレシピはありません
+          <div class="col-lg-12">
+            現在投稿したレシピはありません
+          </div>
         <% end %>
         <div class="row justify-content-end w-100">
           ※更新順で10件まで表示

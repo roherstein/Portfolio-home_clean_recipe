@@ -8,8 +8,7 @@ ja:
         introduction: 説明
       comment:
         comment: コメント
-      cleaning_tool:
+      post/cleaning_tools:
         cleaning_tool_name: 掃除道具
-      cleaning_recipe:
+      post/cleaning_recipes:
         cleaning_recipe: 掃除方法
-        

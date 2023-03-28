@@ -70,9 +70,22 @@ h4{
   text-align: center;
 }
 
+.flash-message{
+  background-color: #ffd700;
+}
+
 // ログイン画面CSS
 .login-field{
   margin: 10px 0px 10px;
+}
+
+// .login-input{
+//   width: 100%;
+// }
+
+.input-form{
+  width: 100%;
+  // text-align: center;
 }
 
 // ユーザ登録画面CSS
@@ -80,7 +93,12 @@ h4{
   margin: 10px 0px 10px;
 }
 
+// .registration-form{
+//   width: 100%;
+//   text-align: center;
+// }
 
+// .login-form
 
 // トップページCSS
 
@@ -157,6 +175,9 @@ h4{
   right: 5%;
   color:#ff69b4;
   
+  a{
+    color: #ff69b4;
+  }
 }
 
 .intro{
@@ -259,14 +280,15 @@ h4{
 .profile-box{
   width: 90%;
   padding: 1%;
+  
 }
 
 .self-intro{
   width: 100%;
-  border: solid 2px #afeeee;
   border-radius: 5%;
   margin-bottom: 5%;
   padding: 1%;
+  background-color: #f0f8ff;
 }
 
 .mypage-box{
@@ -324,10 +346,6 @@ h4{
   .text-area{
     width: 100%;
     height: 100px;
-  }
-  a{
-    padding-top: 2%;
-    padding-left: 1%;
   }
 }
 

@@ -1,5 +1,16 @@
-<%= flash[:notice] %>
+<% if @user.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <div class="container">
+  <div class='flash-message'>
+    <%= flash[:notice] %>
+  </div>
     <h4>管理者 ユーザ情報編集</h4>
     <div class="row">
       <div class="col-lg-4">

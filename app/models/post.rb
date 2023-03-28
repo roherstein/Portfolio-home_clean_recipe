@@ -14,8 +14,8 @@ class Post < ApplicationRecord
   
   validates :title, presence: true, length: { maximum: 20 }
   validates :introduction, presence: true, length: { maximum: 200 }
-  validate :validates_cleaning_tools
-  validate :validates_cleaning_recipes
+  #validate :validates_cleaning_tools
+  #validate :validates_cleaning_recipes
   
   def get_post_image(width,height)
     unless post_image.attached?
@@ -38,9 +38,9 @@ class Post < ApplicationRecord
   def validates_cleaning_tools
     cleaning_tools.each do |cleaning_tool|
       if cleaning_tool.invalid?
-        cleaning_tool.errors.full_messages.each do |msg|
-          errors.add(:base, msg)
-        end
+        # cleaning_tool.errors.full_messages.each do |msg|
+        #   errors.add(:base, msg)
+        # end
       end
     end
   end
@@ -48,9 +48,9 @@ class Post < ApplicationRecord
   def validates_cleaning_recipes
     cleaning_recipes.each do |cleaning_recipe|
       if cleaning_recipe.invalid?
-        cleaning_recipe.errors.full_messages.each do |msg|
-          errors.add(:base, msg)
-        end
+        # cleaning_recipe.errors.full_messages.each do |msg|
+        #   errors.add(:base, msg)
+        # end
       end
     end
   end

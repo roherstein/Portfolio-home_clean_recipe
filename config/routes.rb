@@ -9,6 +9,12 @@ Rails.application.routes.draw do
     post 'public/guest_sign_in', to: 'public/sessions#new_guest'
   end
   
+  namespace :admin do
+    
+    resources :users, only:[:update]
+    
+  end
+  
   devise_for :admins,skip:[:registration,:password],controllers:{
     sessions: 'admin/sessions'
   }
@@ -17,7 +23,7 @@ Rails.application.routes.draw do
     get 'users/:id/history' => 'users#history'
     get 'comments/:id/list' => 'comments#list'
     resources :posts, only:[:index,:show]
-    resources :users, only:[:index,:show,:edit,:update]
+    resources :users, only:[:index,:show,:edit]
     resources :comments, only:[:index,:show,:destroy]
   end
   

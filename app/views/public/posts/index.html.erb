@@ -3,10 +3,12 @@
     <% @posts.each do |post| %>
       <div class="col-lg-4 post-box">
         <%= link_to post_path(post.id) do %>
-        <div class="col-lg-12 index-post-img">
-          <%= image_tag post.get_post_image(250,200) %>
-          <div class="like">
-            ♡<%= post.likes.count %>
+        <div class="row">
+          <div class="index-post-img">
+            <%= image_tag post.get_post_image(250,200) %>
+            <div class="like">
+              ♡<%= post.likes.count %>
+            </div>
           </div>
         </div>
         <div class="col-lg-12">

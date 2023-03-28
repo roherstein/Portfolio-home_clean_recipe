@@ -11,7 +11,7 @@ class Admin::CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @comment.destroy
       flash[:notice] = "コメントを削除しました"
-      redirect_to post_comments
+      redirect_to admin_comments_path
     else
       flash[:notice] = "コメントの削除に失敗しました"
       redirect_to admin_comment_path(@commnet)

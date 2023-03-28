@@ -20,7 +20,7 @@
   <div class="row user-info">
     <span>作成者：</span>
     <%= image_tag @user.get_profile_image(50,50) %>
-    <%= link_to @user.user_name, user_path(@user.id) %>
+    <%= link_to @user.user_name, admin_user_path(@user.id) %>
   </div>
   <div class="row show-date">
     <span>作成日時：</span>

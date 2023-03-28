@@ -1,5 +1,7 @@
-<%= flash[:notice] %>
 <div class="container">
+  <div class='flash-message'>
+    <%= flash[:notice] %>
+  </div>
     <h4>ユーザ情報詳細</h4>
     <div class="row">
       <div class="col-lg-4">
@@ -7,9 +9,9 @@
           <%= image_tag @user.get_profile_image(200,200) %>
         </div>
         <div class="row">
-            <% if user_signed_in? && @user.id == current_user.id %>
-              <%= link_to "ユーザ情報編集", edit_user_path(current_user), class: "btn btn-success" %>
-            <% end %>
+          <% if user_signed_in? && @user.id == current_user.id %>
+            <%= link_to "ユーザ情報編集", edit_user_path(current_user), class: "btn btn-success" %>
+          <% end %>
         </div>
       </div>
       
@@ -20,7 +22,11 @@
               ニックネーム
             </div>
             <div class="col-lg-8">
+              <% if @user.user_name.present? %>
                 <%= @user.user_name %>
+              <% else %>
+                現在登録がありません。
+              <% end %>
             </div>
           </div>
           <% if user_signed_in? %>
@@ -40,7 +46,11 @@
               プロフィール
             </div>
             <div class="col-lg-8">
-              <%= @user.self_introduction %>
+              <% if @user.user_name.present? %>
+                <%= @user.self_introduction %>
+              <% else %>
+                現在登録がありません。
+              <% end %>
             </div>
           </div>
         </div>
@@ -62,7 +72,9 @@
               </div>
             <% end %>
           <% else %>
-            現在投稿したレシピはありません
+            <div class="col-lg-12 profile-list">
+              現在投稿したレシピはありません
+            </div>
           <% end %>
           <div class="row justify-content-end w-100">
             ※更新順で10件まで表示

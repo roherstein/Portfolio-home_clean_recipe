@@ -30,17 +30,22 @@
                 </div>
               <% end %>
             </div>
-            <div class="order-1 order-lg-1 col-10 col-lg-4 align-self-center">
-              <%= render 'public/searches/search' %>
-              <%= link_to 'カテゴリから選ぶ >>', categories_path %>
-            </div>
+            <% unless admin_signed_in? %>
+              <div class="order-1 order-lg-1 col-10 col-lg-4 align-self-center">
+                <%= render 'public/searches/search' %>
+                <%= link_to 'カテゴリから選ぶ >>', categories_path %>
+              </div>
+            <% else %>
+              <div class="order-1 order-lg-1 col-10 col-lg-4 align-self-center"></div>
+            <% end %>
+            
             <div class="order-3 order-lg-2 col-12 col-lg-5 align-self-center">
               <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav w-100">
                   <div class="row w-100">
                     <% if admin_signed_in? then %>
                       <div class="col-lg-4 line">
-                        <li class="nav-list-item d-flex justify-content-end">
+                        <li class="nav-list-item justify-content-end">
                           <%= link_to admin_users_path do %>
                             <%= image_tag 'user-list-icon.png', size: "30x30" %>
                             <div>ユーザ一覧</div>
@@ -48,7 +53,7 @@
                         </li>
                       </div>
                       <div class="col-lg-4 line">
-                        <li class="nav-list-item d-flex justify-content-end">
+                        <li class="nav-list-item justify-content-end">
                           <%= link_to admin_comments_path do %>
                             <%= image_tag 'comment-list-icon.png', size: "30x30" %>
                             <div>コメント一覧</div>
@@ -56,7 +61,7 @@
                         </li>
                       </div>
                       <div class="col-lg-4 line">
-                        <li class="nav-list-item d-flex justify-content-end">
+                        <li class="nav-list-item justify-content-end">
                           <%= link_to destroy_admin_session_path, method: :delete do %>
                             <%= image_tag 'logout-icon.png', size: "30x30" %>
                             <div>ログアウト</div>
@@ -65,7 +70,7 @@
                       </div>
                     <% elsif user_signed_in? then %>
                       <div class="col-lg-4 line">
-                        <li class="nav-list-item d-flex justify-content-center">
+                        <li class="nav-list-item justify-content-center">
                           <%= link_to users_mypage_path do %>
                             <%= image_tag 'mypage-icon.png', size: "30x30" %>
                             <div>マイページ</div>
@@ -73,7 +78,7 @@
                         </li>
                       </div>
                       <div class="col-lg-4 line">
-                        <li class="nav-list-item d-flex justify-content-center">
+                        <li class="nav-list-item justify-content-center">
                           <%= link_to new_post_path do %>
                             <%= image_tag 'post-icon.png', size: "30x30" %>
                             <div>投稿する</div>
@@ -81,7 +86,7 @@
                         </li>
                       </div>
                       <div class="col-lg-4 line">
-                        <li class="nav-list-item d-flex justify-content-center">
+                        <li class="nav-list-item justify-content-center">
                           <%= link_to destroy_user_session_path, method: :delete do %>
                             <%= image_tag 'logout-icon.png', size: "30x30" %>
                             <div>ログアウト</div>
@@ -90,7 +95,7 @@
                       </div>
                     <% else %>
                       <div class="col-lg-4 line">
-                        <li class="nav-list-item d-flex justify-content-end">
+                        <li class="nav-list-item justify-content-end">
                           <%= link_to public_guest_sign_in_path, method: :post, class: "login" do %>
                             <%= image_tag 'guest-icon.png', size: "30x30" %>
                             <div>ゲストログイン</div>
@@ -98,7 +103,7 @@
                         </li>
                       </div>
                       <div class="col-lg-4 line">
-                        <li class="nav-list-item d-flex justify-content-end">
+                        <li class="nav-list-item justify-content-end">
                           <%= link_to new_user_session_path  do %>
                             <%= image_tag 'login-icon.png', size: "30x30" %>
                             <div>ログイン</div>
@@ -106,7 +111,7 @@
                         </li>
                       </div>
                       <div class="col-lg-4 line">
-                        <li class="nav-list-item d-flex justify-content-end">
+                        <li class="nav-list-item justify-content-end">
                           <%= link_to new_user_registration_path  do %>
                             <%= image_tag 'registration-icon.png', size: "30x30" %>
                             <div>ユーザ登録</div>

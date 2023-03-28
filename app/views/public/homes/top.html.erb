@@ -8,7 +8,15 @@
                 <div class="index-post-img">
                   <%= image_tag post.get_post_image(250,200) %>
                   <div class="like">
-                    ♡<%= post.likes.count %>
+                    <% if user_signed_in? %>
+                      <% if post.liked_by?(current_user) %>
+                        ♥<%= post.likes.count %>
+                      <% else %>
+                        ♡<%= post.likes.count %>
+                      <% end %>
+                    <% else %>
+                      ♡<%= post.likes.count %>
+                    <% end %>
                   </div>
                 </div>
                 <div class="col-lg-12">

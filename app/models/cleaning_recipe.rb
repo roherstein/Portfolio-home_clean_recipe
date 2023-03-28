@@ -1,7 +1,7 @@
 class CleaningRecipe < ApplicationRecord
   has_one_attached :recipe_image
   belongs_to :post
-  validates :cleaning_recipe, presence: true, length: { minimum: 1 }
+  validates :cleaning_recipe, presence: true, length: { maximum: 140 }
   
   def get_recipe_image(width, height)
     unless recipe_image.attached?

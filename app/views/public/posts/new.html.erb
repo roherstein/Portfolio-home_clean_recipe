@@ -1,5 +1,7 @@
-<%= flash[:notice] %>
 <div class="container">
+  <div class='flash-message'>
+    <%= flash[:notice] %>
+  </div>
   <h4>新規投稿</h4>
   <div class="row">
     <%= form_with model: @post, url: posts_path do |f| %>
