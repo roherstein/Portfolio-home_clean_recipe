@@ -1,12 +1,16 @@
 <div class="container">
   <div class='flash-message'>
     <%= flash[:notice] %>
+    <%= flash[:alert] %>
   </div>
   <%= render "devise/shared/error_messages", resource: resource %>
   <h4>管理者ログイン</h4>
   <div class="row justify-content-center">
     <%= form_with model: Admin, url: admin_session_path, class: "col-lg-5 col-md-10 col-12" do |f| %>
+    
+
       <div class="login-field">
+          <%= render "devise/shared/error_messages", resource: resource %>
         <%= f.label :email, "メールアドレス" %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-form" %>
       </div>

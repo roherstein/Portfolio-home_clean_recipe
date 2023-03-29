@@ -24,14 +24,6 @@ header{
   border-bottom: solid 1px #00ced1;
 }
 
-//.navbar-brand{/*反映無し*/
-//  margin-bottom:20px;  
-//}
-
-// .logo{/*反映無し*/
-//   margin-bottom:20px;  
-// }
-
 .search{
   margin-left:50px;
   margin-top:50px;
@@ -72,6 +64,10 @@ h4{
 
 .flash-message{
   background-color: #ffd700;
+}
+
+.validation-message{
+  color: #fa8072;
 }
 
 // ログイン画面CSS

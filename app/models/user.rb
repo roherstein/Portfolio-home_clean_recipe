@@ -16,7 +16,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   
-  validates :user_name, uniqueness: true
+  validates :user_name, uniqueness: true, allow_nil: true
   
   def self.looks(keyword)
     @user = User.where("user_name LIKE?","%#{keyword}%")
