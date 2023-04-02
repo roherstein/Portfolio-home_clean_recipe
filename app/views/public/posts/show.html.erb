@@ -59,11 +59,11 @@
 
   <div class="row">
     <div class="sub-title">掃除道具</div>
-    <div class="tool">
       <% @post.cleaning_tools.each do |cleaning_tool| %>
-        ・<%= cleaning_tool.cleaning_tool_name %><br>
+        <div class="tool">
+          ・<%= cleaning_tool.cleaning_tool_name %><br>
+        </div>
       <% end %>
-    </div>
     <div class="sub-title">掃除方法</div>
     <div class="col-lg-12">
       <% @post.cleaning_recipes.each do |cleaning_recipe| %>

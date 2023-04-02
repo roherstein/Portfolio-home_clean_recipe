@@ -1,4 +1,8 @@
 <div class="container">
+  <div class='flash-message'>
+    <%= flash[:notice] %>
+    <%= flash[:alert] %>
+  </div>
   <h4>新着お掃除レシピ</h4>
     <div class="row">
         <% @posts.each do |post| %>

@@ -1,4 +1,7 @@
 <div class="container">
+  <div class='flash-message'>
+    <%= flash[:notice] %>
+  </div>
   <h4>
     管理者 投稿一覧トップページ
     <span class="num-items">全<%= @posts.count %>件</span>

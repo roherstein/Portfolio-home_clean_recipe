@@ -28,7 +28,7 @@
         <% if @posts.presence %>
           <% @posts.each do |post| %>
             <div class="col-12">
-              <%= link_to post.title, search_path %>  
+              <%= link_to post.title, post_path(post.id) %>
             </div>
           <% end %>
         <% else %>

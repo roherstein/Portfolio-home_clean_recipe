@@ -13,12 +13,16 @@ class Public::UsersController < ApplicationController
   
   def update
     @user = current_user
-    if @user.update(user_params)
-      flash[:notice] = 'ユーザ情報を編集しました'
-      redirect_to user_path
+    if @user.email == "guest@example.com"
+      redirect_to edit_user_path(@user), alert: 'ゲストユーザのため、変更・削除はできません。'
     else
-      flash.now[:notice] = 'ユーザ情報の編集に失敗しました'
-      render :edit
+      if @user.update(user_params)
+        flash[:notice] = 'ユーザ情報を編集しました。'
+        redirect_to user_path
+      else
+        flash.now[:notice] = 'ユーザ情報の編集に失敗しました。'
+        render :edit
+      end
     end
   end
   
@@ -29,6 +33,9 @@ class Public::UsersController < ApplicationController
   
   def confirm
     @user = User.find(current_user.id)
+    if @user.email == "guest@example.com"
+      redirect_to edit_user_path(@user), alert: 'ゲストユーザの変更・削除はできません。'
+    end
   end
   
   def withdrawal
@@ -50,7 +57,7 @@ class Public::UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:email,:user_name,:self_introduction,:is_deleted)
+    params.require(:user).permit(:email,:user_name,:profile_image,:self_introduction,:is_deleted)
   end
   
 end

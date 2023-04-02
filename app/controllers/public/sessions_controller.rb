@@ -7,8 +7,15 @@ class Public::SessionsController < Devise::SessionsController
   def new_guest #ゲストログインのためのメソッド
     user = User.guest
     sign_in user
-    redirect_to root_path
+    redirect_to root_path, notice: "ゲストユーザとしてログインしました。"
   end
+  
+  def ensure_general_user
+    if params[:user][:email].downcase == "guest@example.com"
+      redirect_to new_user_session_path, alert: "ゲストユーザのパスワード再設定はできません。"
+    end
+  end
+  
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
