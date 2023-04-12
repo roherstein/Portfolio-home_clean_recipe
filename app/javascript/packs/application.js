@@ -11,8 +11,11 @@ import "jquery";
 import "cocoon"
 import "popper.js";
 import "bootstrap";
+
 import "../stylesheets/application" 
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+

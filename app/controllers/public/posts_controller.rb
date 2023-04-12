@@ -95,7 +95,7 @@ class Public::PostsController < ApplicationController
       @posts = Kaminari.paginate_array(Post.find(post_ids)).page(params[:page])
     else
       publish_posts = Post.where(is_publish: true)
-      @posts = Kaminari.paginate_array(publish_posts).page(params[:page]).per(12)
+      @posts = Kaminari.paginate_array(publish_posts).page(params[:page]).per(6)
     end
   end
   

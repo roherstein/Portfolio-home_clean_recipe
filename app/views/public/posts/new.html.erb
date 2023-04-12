@@ -3,7 +3,6 @@
     <%= flash[:notice] %>
   </div>
   <h4>新規投稿</h4>
-  <div class="row">
     <%= form_with model: @post, url: posts_path do |f| %>
       <%= render 'layouts/error_messages', model: f.object %>
       <div class="row">
@@ -93,5 +92,4 @@
         </div>
       </div>
     <% end %>
-  </div>
 </div>
