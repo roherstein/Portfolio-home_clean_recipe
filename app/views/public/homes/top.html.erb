@@ -4,46 +4,45 @@
     <%= flash[:alert] %>
   </div>
   <h4>新着お掃除レシピ</h4>
-    <div class="row">
-        <% @posts.each do |post| %>
-          <div class="col-lg-4 post-box">
-            <%= link_to post_path(post.id) do %>
-              <div class="row">
-                <div class="index-post-img">
-                  <%= image_tag post.get_post_image(250,200) %>
-                  <div class="like">
-                    <% if user_signed_in? %>
-                      <% if post.liked_by?(current_user) %>
-                        ♥<%= post.likes.count %>
-                      <% else %>
-                        ♡<%= post.likes.count %>
-                      <% end %>
-                    <% else %>
-                      ♡<%= post.likes.count %>
-                    <% end %>
-                  </div>
-                </div>
-                <div class="col-lg-12">
-                  <div class="post-title">
-                    <strong><%= post.title %></strong><br>
-                  </div>
-                  <div class="user-info">
-                    <%= image_tag post.user.get_profile_image(30,30) %>
-                    <% if post.user.user_name.present? %>
-                      <%= post.user.user_name %>
-                    <% else %>
-                      未登録
-                    <% end %>
-                  </div>
-                </div>
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-lg-4 post-box">
+        <%= link_to post_path(post.id) do %>
+          <div class="row">
+            <div class="index-post-img">
+              <%= image_tag post.get_post_image(250,200) %>
+              <div class="like">
+                <% if user_signed_in? %>
+                  <% if post.liked_by?(current_user) %>
+                    ♥<%= post.likes.count %>
+                  <% else %>
+                    ♡<%= post.likes.count %>
+                  <% end %>
+                <% else %>
+                  ♡<%= post.likes.count %>
+                <% end %>
               </div>
-            <% end %>
+            </div>
+            <div class="col-lg-12">
+              <div class="post-title">
+                <strong><%= post.title %></strong><br>
+              </div>
+              <div class="user-info">
+                <%= image_tag post.user.get_profile_image(30,30) %>
+                <% if post.user.user_name.present? %>
+                  <%= post.user.user_name %>
+                <% else %>
+                  未登録
+                <% end %>
+              </div>
+            </div>
           </div>
         <% end %>
-        
-    </div>
-    <div class="row justify-content-center">
-      <%= paginate @posts, theme: 'twitter-bootstrap-4' %>
-    </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="row justify-content-center">
+    <%= paginate @posts, theme: 'twitter-bootstrap-4' %>
+  </div>
 </div>
 
