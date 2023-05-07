@@ -92,7 +92,7 @@ class Public::PostsController < ApplicationController
   def index
     if params[:category_id] then
       post_ids = PostCategory.includes(:post).where(category_id: params[:category_id],posts: {is_publish: true}).pluck(:post_id)
-      @posts = Kaminari.paginate_array(Post.find(post_ids)).page(params[:page])
+      @posts = Kaminari.paginate_array(Post.find(post_ids)).page(params[:page]).per(6)
     else
       publish_posts = Post.where(is_publish: true)
       @posts = Kaminari.paginate_array(publish_posts).page(params[:page]).per(6)

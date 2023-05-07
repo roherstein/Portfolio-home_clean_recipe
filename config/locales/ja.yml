@@ -12,3 +12,10 @@ ja:
         cleaning_tool_name: 掃除道具
       post/cleaning_recipes:
         cleaning_recipe: 掃除方法
+  views:
+    pagination:
+      first: "&laquo; 最初へ"
+      last: "最後へ &raquo;"
+      previous: "&lsaquo; 前へ"
+      next: "次へ &rsaquo;"
+      truncate: "..."
