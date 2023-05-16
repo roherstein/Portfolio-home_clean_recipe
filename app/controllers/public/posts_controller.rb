@@ -10,7 +10,6 @@ class Public::PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     @post.is_publish = false if draft?
     
-    
     if @post.save
       flash[:notice] = (draft? ? "下書き保存しました！" : "投稿が完了しました！")
       redirect_to post_path(@post)
@@ -18,25 +17,7 @@ class Public::PostsController < ApplicationController
       flash.now[:notice] = (draft? ? "保存ができませんでした。" : "投稿できませんでした。") + "お手数ですが、入力内容をご確認の上、再度お試しください。"
       render :new
     end
-      
-    #if @post.is_publish?
-    #  #公開時
-    #  valid = @post.valid?(:publicize)
-    #else
-    #  #非公開時
-    #  valid = @post.valid?
-    #end
     
-    #if valid
-    #  #バリデーション実行時エラーがない場合
-    #  @post.save!
-    #  flash[:notice] = (draft? ? "下書き保存しました！" : "投稿が完了しました！")
-    #  redirect_to post_path(@post)
-    #else
-    #  #エラーがある場合
-    #  flash.now[:notice] = (draft? ? "保存ができませんでした。" : "投稿できませんでした。") + "お手数ですが、入力内容をご確認の上、再度お試しください。"
-    #  render :new
-    #end
   end
   
   def show
@@ -52,11 +33,8 @@ class Public::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     
-    #if @post.invalid?
-    #  # 常に行うバリデーションでエラー
-    #  render :edit
-    #  return
-    #end
+     # 下書き投稿の場合に投稿にする
+    @post.is_publish = true if change_publish?
     
     if @post.update(post_params)
       flash[:notice] = update_message_success
@@ -72,15 +50,6 @@ class Public::PostsController < ApplicationController
       return
     end
     
-    # ここに来たということはバリデーションが通っている
-    
-    # 下書き投稿の場合に投稿にする
-    @post.is_publish = true if change_publish?
-    
-    # 更新処理
-    #@post.update(post_params)
-    #flash[:notice] = update_message_success
-    #redirect_to post_path(@post)
   end
   
   def destroy
@@ -114,11 +83,8 @@ class Public::PostsController < ApplicationController
   def draft
     @posts = Post.where(is_publish: false, user_id: current_user.id )
     @draft_posts = Kaminari.paginate_array(@posts).page(params[:page]).per(6)
-    # posts = Post.where(is_publish: false).pluck(:post_id)
-    # @draft_posts = Kaminari.paginate_array(Post.find(post_id)).page(params[:page])
   end
   
-  # 本当はここにストロングパラメータがあった
   
   def draft?
     params.keys.include?('draft_post')
